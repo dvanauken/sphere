@@ -8,7 +8,7 @@ export class GeometryService {
   private sphere: Sphere;
 
   constructor(radius: number) {
-    this.sphere = new Sphere(radius);
+    this.sphere = Sphere.earth();
   }
 
   createGreatCircle(start: Coordinate, end: Coordinate): GreatCircle {

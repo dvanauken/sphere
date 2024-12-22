@@ -1,5 +1,6 @@
 {
-  "name": "spherical-geometry-api",
+  "type": "module",
+  "name": "sphere",
   "version": "1.0.0",
   "description": "A TypeScript library for calculating and manipulating data on a spherical surface, ideal for applications in geospatial analysis, astronomy, and navigation.",
   "main": "build/index.js",
@@ -7,11 +8,11 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "test": "node testRunner.js"
+    "test": "bash -c 'find ./test -type f -name \"*.test.ts\" -exec tsx --test {} +'"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sphere/spherical-geometry-api.git"
+    "url": "https://github.com/sphere/sphere.git"
   },
   "keywords": [
     "spherical",
@@ -30,8 +31,9 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
-    "eslint": "^7.32.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0"
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "tsx": "^4.19.2"
   }
 }
