@@ -1,35 +1,18 @@
-// src/models/Sphere.ts
+import { Distance } from "./Distance";
+
 export class Sphere {
-  private constructor(public readonly radius: number) {
-      this.radius = radius;
-  }
+    private static readonly DEFAULT_RADIUS = Distance.fromKilometers(6371);
 
-  // Factory methods for common celestial bodies
-  static earth(): Sphere {
-      return new Sphere(6371); // Mean radius in kilometers
-  }
+    static getRadius = (radius?: Distance): Distance => 
+        radius ?? Sphere.DEFAULT_RADIUS;
 
-  static moon(): Sphere {
-      return new Sphere(1737.1);
-  }
+    static surfaceAreaFromRadius = (radius: Distance): number => 
+        4 * Math.PI * Math.pow(radius.inMeters() / 1000, 2);
 
-  static mars(): Sphere {
-      return new Sphere(3389.5);
-  }
-
-  static custom(radius: number): Sphere {
-      if (radius <= 0) {
-          throw new Error('Radius must be positive');
-      }
-      return new Sphere(radius);
-  }
-
-  // Calculation methods
-  surfaceArea(): number {
-      return 4 * Math.PI * Math.pow(this.radius, 2);
-  }
-
-  volume(): number {
-      return (4/3) * Math.PI * Math.pow(this.radius, 3);
-  }
+    static volumeFromRadius = (radius: Distance): number => 
+        (4/3) * Math.PI * Math.pow(radius.inMeters() / 1000, 3);
 }
+
+// Usage:
+const radius = Sphere.getRadius();  // Default 6371km
+const customRadius = Sphere.getRadius(Distance.fromMiles(4000));

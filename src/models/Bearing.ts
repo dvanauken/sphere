@@ -1,26 +1,23 @@
-// This file defines the Bearing class. 
-// Bearing.ts
 import { Coordinate } from './Coordinate';
+import { Angle } from './Angle';
 import { Azimuth } from './Azimuth';
 
 export class Bearing {
-    start: Coordinate;
-    end: Coordinate;
+    private constructor(
+        private readonly start: Coordinate,
+        private readonly end: Coordinate
+    ) {}
 
-    constructor(start: Coordinate, end: Coordinate) {
-        this.start = start;
-        this.end = end;
-    }
+    static from = (start: Coordinate) => ({
+        to: (end: Coordinate) => new Bearing(start, end)
+    });
 
-    // Calculate the initial bearing using azimuth calculations
-    calculateInitialBearing(): number {
-        const azimuth = new Azimuth(this.start, this.end);
-        return azimuth.calculateAzimuth();
-    }
+    initial = (): Angle => 
+        Azimuth.from(this.start).to(this.end).forward();
 
-    // Calculate the final bearing by reversing start and end
-    calculateFinalBearing(): number {
-        const azimuth = new Azimuth(this.end, this.start);
-        return (azimuth.calculateAzimuth() + 180) % 360;  // Adjust by 180 degrees to get the opposite direction
-    }
+    final = (): Angle => 
+        Azimuth.from(this.start).to(this.end).reverse();
+
+    toString = (): string => 
+        `Bearing(${this.start} → ${this.end})`;
 }

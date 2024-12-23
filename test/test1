@@ -1,0 +1,26 @@
+// TypeMapping.test.ts
+describe('TypeMapping', () => {
+    test('should map Coordinate to Point', () => {
+        expect(TypeMapping.get(Coordinate)).toBe(FeaturePoint);
+    });
+});
+
+// TypeConverter.test.ts
+describe('TypeConverter', () => {
+    test('should convert Coordinate to Feature', () => {
+        const coord = Coordinate.at(51.5, -0.1);
+        const feature = TypeConverter.toFeature(coord);
+        expect(feature.type).toBe('Feature');
+        expect(feature.geometry.type).toBe('Point');
+    });
+});
+
+// GeoConverter.test.ts
+describe('GeoConverter', () => {
+    test('should convert back and forth', () => {
+        const original = GreatCircle.from(start).to(end);
+        const feature = GeoConverter.toGeoJSON(original);
+        const converted = GeoConverter.fromGeoJSON(feature);
+        expect(converted).toEqual(original);
+    });
+});

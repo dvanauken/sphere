@@ -1,30 +1,37 @@
-// This file defines the Azimuth class. 
-// Azimuth.ts
 import { Coordinate } from './Coordinate';
+import { Point } from './Point';
 import { Angle } from './Angle';
 
 export class Azimuth {
-    start: Coordinate;
-    end: Coordinate;
+    private constructor(
+        private readonly start: Coordinate,
+        private readonly end: Coordinate
+    ) {}
 
-    constructor(start: Coordinate, end: Coordinate) {
-        this.start = start;
-        this.end = end;
-    }
+    static from = (start: Coordinate) => ({
+        to: (end: Coordinate) => new Azimuth(start, end)
+    });
 
-    // Calculate the azimuth angle in degrees from north
-    calculateAzimuth(): number {
-        const lat1 = this.start.toRadians().latRadians;
-        const lon1 = this.start.toRadians().lonRadians;
-        const lat2 = this.end.toRadians().latRadians;
-        const lon2 = this.end.toRadians().lonRadians;
+    forward = (): Angle => {
+        const startPoint = Point.fromCoordinate(this.start);
+        const endPoint = Point.fromCoordinate(this.end);
 
-        const dLon = lon2 - lon1;
-        const y = Math.sin(dLon) * Math.cos(lat2);
-        const x = Math.cos(lat1) * Math.sin(lat2) -
-                  Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-        const angle = Math.atan2(y, x);
+        const dLon = endPoint.X - startPoint.X;
+        const y = Math.sin(dLon) * Math.cos(endPoint.Y);
+        const x = Math.cos(startPoint.Y) * Math.sin(endPoint.Y) -
+                 Math.sin(startPoint.Y) * Math.cos(endPoint.Y) * Math.cos(dLon);
+        
+        const azimuthRadians = Math.atan2(y, x);
+        const azimuthDegrees = (azimuthRadians * (180 / Math.PI) + 360) % 360;
 
-        return (angle * (180 / Math.PI) + 360) % 360;  // Normalize angle to positive degrees
-    }
+        return new Angle(azimuthDegrees);
+    };
+
+    reverse = (): Angle => {
+        const forward = this.forward().degrees;
+        return new Angle((forward + 180) % 360);
+    };
+
+    toString = (): string => 
+        `Azimuth(${this.start} → ${this.end})`;
 }

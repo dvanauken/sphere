@@ -1,25 +1,37 @@
-// Coordinate.ts
 export class Coordinate {
-  latitude: number;
-  longitude: number;
-  altitude?: number;  // Optional altitude for 3D positioning
+    private constructor(
+        private readonly lat: number,
+        private readonly lon: number,
+        private readonly alt?: number
+    ) {
+        if (lat < -90 || lat > 90) {
+            throw new Error('Latitude must be between -90 and 90 degrees');
+        }
+        if (lon < -180 || lon > 180) {
+            throw new Error('Longitude must be between -180 and 180 degrees');
+        }
+    }
 
-  constructor(latitude: number, longitude: number, altitude?: number) {
-      this.latitude = latitude;
-      this.longitude = longitude;
-      this.altitude = altitude;
-  }
+    static at = (lat: number, lon: number, alt?: number) => 
+        new Coordinate(lat, lon, alt);
 
-  // Convert latitude and longitude from degrees to radians
-  toRadians(): { latRadians: number, lonRadians: number } {
-      return {
-          latRadians: this.latitude * (Math.PI / 180),
-          lonRadians: this.longitude * (Math.PI / 180),
-      };
-  }
+    get latitude(): number {
+        return this.lat;
+    }
 
-  // Optional: toString method for easy debugging
-  toString(): string {
-      return `Coordinate(${this.latitude}, ${this.longitude}${this.altitude ? ', ' + this.altitude : ''})`;
-  }
+    get longitude(): number {
+        return this.lon;
+    }
+
+    get altitude(): number | undefined {
+        return this.alt;
+    }
+
+    equals = (other: Coordinate): boolean => 
+        this.lat === other.lat && 
+        this.lon === other.lon && 
+        this.alt === other.alt;
+
+    toString = (): string =>
+        `(${this.lat}°, ${this.lon}°${this.alt ? `, ${this.alt}m` : ''})`;
 }
