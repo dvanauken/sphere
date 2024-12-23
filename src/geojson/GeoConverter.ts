@@ -1,3 +1,7 @@
+import { Feature } from "./Feature";
+import { GeoReader } from "./GeoReader";
+import { GeoWriter } from "./GeoWriter";
+
 export class GeoConverter {
   static toGeoJSON(input: any): Feature | Feature[] {
       if (Array.isArray(input)) {
@@ -14,8 +18,7 @@ export class GeoConverter {
   }
 }
 
-// Convert to GeoJSON
-const feature = GeoConverter.toGeoJSON(myGreatCircle);
-
-// Convert from GeoJSON
+/* Example usage:
+const feature = GeoConverter.toGeoJSON(greatCircle);
 const circle = GeoConverter.fromGeoJSON(feature);
+*/

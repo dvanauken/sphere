@@ -1,6 +1,6 @@
 import { Coordinate } from './Coordinate';
-import { Point } from './Point';
 import { Angle } from './Angle';
+import { CoordinateSystem } from '../CoordinateSystem';
 
 export class Azimuth {
     private constructor(
@@ -13,8 +13,8 @@ export class Azimuth {
     });
 
     forward = (): Angle => {
-        const startPoint = Point.fromCoordinate(this.start);
-        const endPoint = Point.fromCoordinate(this.end);
+        const startPoint = CoordinateSystem.fromCoordinate(this.start);
+        const endPoint = CoordinateSystem.fromCoordinate(this.end);
 
         const dLon = endPoint.X - startPoint.X;
         const y = Math.sin(dLon) * Math.cos(endPoint.Y);

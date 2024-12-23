@@ -1,3 +1,5 @@
+import { Feature } from "./Feature";
+
 export class GeoConversionError extends Error {
   constructor(
       message: string,

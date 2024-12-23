@@ -1,5 +1,5 @@
 export class Coordinate {
-    private constructor(
+    public constructor(
         private readonly lat: number,
         private readonly lon: number,
         private readonly alt?: number

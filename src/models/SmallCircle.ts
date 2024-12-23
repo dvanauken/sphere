@@ -3,16 +3,17 @@ import { Point } from './Point';
 import { Distance } from './Distance';
 import { Angle } from './Angle';
 import { Sphere } from './Sphere';
+import { CoordinateSystem } from '../CoordinateSystem';
 
 export class SmallCircle {
     private readonly centerPoint: Point;
 
     private constructor(
         private readonly center: Coordinate,
-        private readonly radius: Distance,
-        private readonly sphere: Sphere = Sphere.earth()
+        private readonly circleRadius: Distance,
+        private readonly sphereRadius: Distance = Sphere.getRadius()
     ) {
-        this.centerPoint = Point.fromCoordinate(center);
+        this.centerPoint = CoordinateSystem.fromCoordinate(center);
     }
 
     static withCenter = (center: Coordinate) => ({
@@ -20,21 +21,22 @@ export class SmallCircle {
     });
 
     withSphere = (sphere: Sphere): SmallCircle =>
-        new SmallCircle(this.center, this.radius, sphere);
+        new SmallCircle(this.center, this.circleRadius, Sphere.getRadius());
 
     circumference = (): Distance => {
-        const angularRadius = this.radius.inMeters() / (this.sphere.radius * 1000);
-        return new Distance(2 * Math.PI * this.sphere.radius * 1000 * Math.sin(angularRadius));
+        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
+        return new Distance(2 * Math.PI * this.sphereRadius.inMeters() * Math.sin(angularRadius));
     };
 
     area = (): number => {
-        const angularRadius = this.radius.inMeters() / (this.sphere.radius * 1000);
-        return 2 * Math.PI * this.sphere.radius ** 2 * (1 - Math.cos(angularRadius));
+        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
+        const sphereRadiusKm = this.sphereRadius.inMeters() / 1000;
+        return 2 * Math.PI * Math.pow(sphereRadiusKm, 2) * (1 - Math.cos(angularRadius));
     };
 
     generatePoints = (numPoints: number = 100): Coordinate[] => {
         const points: Coordinate[] = [];
-        const angularRadius = this.radius.inMeters() / (this.sphere.radius * 1000);
+        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
 
         for (let i = 0; i < numPoints; i++) {
             const angle = (2 * Math.PI * i) / numPoints;
@@ -47,15 +49,14 @@ export class SmallCircle {
                 Math.cos(angularRadius) - Math.sin(this.centerPoint.Y) * Math.sin(latRad)
             );
 
-            points.push(Coordinate.at(
-                latRad * 180 / Math.PI,
-                lonRad * 180 / Math.PI
-            ));
+            points.push(CoordinateSystem.fromPoint(Point.at(lonRad, latRad)));
         }
 
         return points;
     };
 
+    getRadius = (): Distance => this.circleRadius;
+
     toString = (): string =>
-        `SmallCircle(center: ${this.center}, radius: ${this.radius})`;
+        `SmallCircle(center: ${this.center}, radius: ${this.circleRadius})`;
 }

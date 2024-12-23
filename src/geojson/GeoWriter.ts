@@ -1,3 +1,5 @@
+import { Feature } from "./Feature";
+import { GeoRegistry } from "./GeoRegistry";
 
 export class GeoWriter {
   static write(source: any): Feature {

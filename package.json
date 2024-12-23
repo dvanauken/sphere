@@ -2,27 +2,19 @@
   "type": "module",
   "name": "sphere",
   "version": "1.0.0",
-  "description": "A TypeScript library for calculating and manipulating data on a spherical surface, ideal for applications in geospatial analysis, astronomy, and navigation.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "test": "bash -c 'find ./test -type f -name \"*.test.ts\" -exec tsx --test {} +'"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/sphere/sphere.git"
   },
-  "keywords": [
-    "spherical",
-    "geometry",
-    "geospatial",
-    "navigation",
-    "astronomy"
-  ],
-  "author": "dvanauken@users.noreply.github.com",
-  "license": "MIT",
   "files": [
     "build/**/*"
   ],
@@ -30,10 +22,11 @@
     "typescript": "^4.5.2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^7.32.0",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "vitest": "^1.6.0"
   }
 }

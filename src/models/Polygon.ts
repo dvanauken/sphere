@@ -1,22 +1,49 @@
 import { Coordinate } from "./Coordinate";
 import { Point } from "./Point";
+import { CoordinateSystem } from "../CoordinateSystem";
 
 export class Polygon {
-  // Coordinate-based
-  static fromCoordinates = (coords: Coordinate[]) => new Polygon(coords);
+    constructor(private readonly vertices: Coordinate[]) {
+        if (vertices.length < 3) {
+            throw new Error("Polygon must have at least 3 vertices");
+        }
+    }
 
-  // Point-based 
-  static fromPoints = (points: Point[]) => {
-      const coords = points.map(p => 
-          Coordinate.at(p.Y * 180/Math.PI, p.X * 180/Math.PI)
-      );
-      return new Polygon(coords);
-  };
+    // Coordinate-based constructor
+    static fromCoordinates = (coords: Coordinate[]): Polygon => 
+        new Polygon(coords);
 
-  rewind = (): Polygon => {
-      const points = this.coordinates.map(c => Point.fromCoordinate(c));
-      const fixed = this.ensureProperWindingPoints(points);
-      return Polygon.fromPoints(fixed);
-  };
+    // Point-based constructor
+    static fromPoints = (points: Point[]): Polygon => {
+        const coords = points.map(p => 
+            CoordinateSystem.fromPoint(p)
+        );
+        return new Polygon(coords);
+    };
 
+    getVertices = (): Coordinate[] => this.vertices;
+
+    rewind = (): Polygon => {
+        const points = this.vertices.map(c => CoordinateSystem.fromCoordinate(c));
+        const fixed = this.ensureProperWindingPoints(points);
+        return Polygon.fromPoints(fixed);
+    };
+
+    private ensureProperWindingPoints = (points: Point[]): Point[] => {
+        // Calculate the signed area
+        let area = 0;
+        for (let i = 0; i < points.length; i++) {
+            const j = (i + 1) % points.length;
+            area += points[i].X * points[j].Y - points[j].X * points[i].Y;
+        }
+
+        // If area is negative (clockwise), reverse the points
+        if (area > 0) {
+            return [...points].reverse();
+        }
+        return points;
+    };
+
+    toString = (): string =>
+        `Polygon(${this.vertices.length} vertices)`;
 }

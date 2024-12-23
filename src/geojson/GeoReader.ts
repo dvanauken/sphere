@@ -1,3 +1,6 @@
+import { Feature } from "./Feature";
+import { GeoRegistry } from "./GeoRegistry";
+
 export class GeoReader {
   static read(feature: Feature): any {
       return GeoRegistry.reverse(feature);
