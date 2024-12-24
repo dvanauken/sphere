@@ -55,6 +55,8 @@ export class SmallCircle {
         return points;
     };
 
+    getCenter = (): Coordinate => this.center;
+
     getRadius = (): Distance => this.circleRadius;
 
     toString = (): string =>

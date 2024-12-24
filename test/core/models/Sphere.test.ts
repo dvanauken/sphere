@@ -75,7 +75,7 @@ describe('Sphere', () => {
         });
 
         it('should handle zero radius', () => {
-            const zeroRadius = Distance.fromMeters(0);
+            const zeroRadius = Distance.fromKilometers(0);
             const radius = Sphere.getRadius(zeroRadius);
             expect(radius.inMeters()).toBe(0);
         });
@@ -108,7 +108,7 @@ describe('Sphere', () => {
         });
 
         it('should maintain precision for small values', () => {
-            const smallRadius = Distance.fromMeters(0.1);
+            const smallRadius = new Distance(0.1); // Changed from fromMeters
             const area = Sphere.surfaceAreaFromRadius(smallRadius);
             const volume = Sphere.volumeFromRadius(smallRadius);
             
@@ -122,7 +122,7 @@ describe('Sphere', () => {
     describe('Unit Consistency', () => {
         it('should maintain consistent units in calculations', () => {
             const radiusInKm = Distance.fromKilometers(1000);
-            const radiusInM = Distance.fromMeters(1000000);
+            const radiusInM = new Distance(1000000); // Changed from fromMeters
             
             const areaFromKm = Sphere.surfaceAreaFromRadius(radiusInKm);
             const areaFromM = Sphere.surfaceAreaFromRadius(radiusInM);

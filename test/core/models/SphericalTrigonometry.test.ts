@@ -120,8 +120,8 @@ describe('SphericalTrigonometry', () => {
         });
 
         it('should handle very small distances', () => {
-            const arcA = Distance.fromMeters(0.1);
-            const arcB = Distance.fromMeters(0.1);
+            const arcA = new Distance(0.1); // Direct meters constructor
+            const arcB = new Distance(0.1); // Direct meters constructor
             const angleC = new Angle(60);
 
             const arcC = SphericalTrigonometry.lawOfCosines(
@@ -136,8 +136,8 @@ describe('SphericalTrigonometry', () => {
 
     describe('Numerical Stability', () => {
         it('should maintain precision for small values', () => {
-            const arcA = Distance.fromMeters(1);
-            const arcB = Distance.fromMeters(1);
+            const arcA = new Distance(1); // Direct meters constructor
+            const arcB = new Distance(1); // Direct meters constructor
             const angleC = new Angle(1);
 
             const arcC = SphericalTrigonometry.lawOfCosines(

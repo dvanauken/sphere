@@ -159,7 +159,7 @@ describe('GeoJSON Integration', () => {
             
             // Generate search pattern
             const perimeterPoints = searchArea.generatePoints(8);
-            const searchPatterns = [];
+            const searchPatterns: GreatCircle[] = [];
             
             // Create spokes from center to perimeter
             perimeterPoints.forEach(point => {
@@ -172,7 +172,6 @@ describe('GeoJSON Integration', () => {
                 searchPatterns.push(GreatCircle.from(point).to(nextPoint));
             });
             
-            // Convert all to GeoJSON
             const features = searchPatterns.map(pattern => 
                 TypeConverter.toFeature(pattern)
             );

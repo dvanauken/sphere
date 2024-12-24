@@ -8,7 +8,7 @@ import { CoordinateSystem } from '../coordinate/CoordinateSystem';
 export class Triangle {
     private readonly points: Point[];
 
-    private constructor(
+    public constructor(
         private readonly triangleVertices: [Coordinate, Coordinate, Coordinate],
         private readonly sphereRadius: Distance = Sphere.getRadius()
     ) {

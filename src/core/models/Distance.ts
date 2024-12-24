@@ -34,6 +34,10 @@ export class Distance {
         return this.meters * Distance.METERS_TO_NM;
     }
 
+    static fromMeters(meters: number): Distance {
+        return new Distance(meters);
+    }
+
     static fromKilometers(km: number): Distance {
         return new Distance(km * 1000);
     }

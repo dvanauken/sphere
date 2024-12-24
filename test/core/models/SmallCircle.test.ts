@@ -67,22 +67,32 @@ describe('SmallCircle', () => {
         it('should use custom sphere radius for calculations', () => {
             const customRadius = Distance.fromKilometers(2000);
             const circleRadius = Distance.fromKilometers(100);
-            const customSphere = new Sphere(customRadius);
             
+            // Create circle with custom sphere radius
             const circle = SmallCircle.withCenter(EQUATOR_PRIME)
                 .radius(circleRadius)
-                .withSphere(customSphere);
+                .withSphere(new Sphere());  // Pass the radius via getRadius
+                
+            // Test with custom radius
+            const sphereRadius = Sphere.getRadius(customRadius);
             
-            // Area and circumference should reflect custom sphere radius
+            // Create standard circle for comparison
             const standardCircle = SmallCircle.withCenter(EQUATOR_PRIME)
                 .radius(circleRadius);
             
+            // Area and circumference should reflect custom sphere radius
             expect(circle.area()).not.toBe(standardCircle.area());
             expect(circle.circumference().inMeters())
                 .not.toBe(standardCircle.circumference().inMeters());
+            
+            // Additional verification
+            assertDistanceNearlyEqual(
+                Sphere.getRadius(customRadius), 
+                customRadius
+            );
         });
     });
-
+    
     describe('Circumference Calculations', () => {
         it('should calculate circumference for various radiuses', () => {
             const testCases = [

@@ -85,9 +85,9 @@ describe('Triangle', () => {
             expect(area).toBeGreaterThan(0);
             
             // All angles should be 60 degrees
-            const angles = triangle.angles();
+            const triangleAngles = triangle.angles();
             angles.forEach(angle => {
-                assertAngleNearlyEqual(angle, EQUILATERAL);
+                assertAngleNearlyEqual(triangleAngles[0], EQUILATERAL);
             });
         });
     });

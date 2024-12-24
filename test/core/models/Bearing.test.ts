@@ -23,6 +23,7 @@ import {
     WEST
 } from '../../__fixtures__/angles';
 import { Coordinate } from '../../../src/core/models/Coordinate';
+import { Angle } from '../../../src';
 
 describe('Azimuth', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {
