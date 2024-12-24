@@ -1,14 +1,8 @@
-import { Coordinate } from '../models/Coordinate';
-import { Point } from '../models/Point';
-import { GreatCircle } from '../models/GreatCircle';
-import { SmallCircle } from '../models/SmallCircle';
-import { Triangle } from '../models/Triangle';
-import { Point as GeoJSONPoint } from './Point';
-import { LineString } from './LineString';
-import { Polygon } from './Polygon';
-import { MultiPoint } from './MultiPoint';
-import { MultiLineString } from './MultiLineString';
-import { MultiPolygon } from './MultiPolygon';
+import { Coordinate } from "../../core/models/Coordinate";
+import { GreatCircle } from "../../core/models/GreatCircle";
+import { Point } from "../../core/models/Point";
+import { SmallCircle } from "../../core/models/SmallCircle";
+import { Triangle } from "../../core/models/Triangle";
 
 export interface GeoType {
     type: string;

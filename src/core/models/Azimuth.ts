@@ -1,6 +1,6 @@
 import { Coordinate } from './Coordinate';
 import { Angle } from './Angle';
-import { CoordinateSystem } from '../CoordinateSystem';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem';
 
 export class Azimuth {
     private constructor(

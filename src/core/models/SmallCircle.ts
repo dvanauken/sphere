@@ -3,7 +3,7 @@ import { Point } from './Point';
 import { Distance } from './Distance';
 import { Angle } from './Angle';
 import { Sphere } from './Sphere';
-import { CoordinateSystem } from '../CoordinateSystem';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem';
 
 export class SmallCircle {
     private readonly centerPoint: Point;

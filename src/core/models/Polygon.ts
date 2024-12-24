@@ -1,6 +1,6 @@
+import { CoordinateSystem } from "../coordinate/CoordinateSystem";
 import { Coordinate } from "./Coordinate";
 import { Point } from "./Point";
-import { CoordinateSystem } from "../CoordinateSystem";
 
 export class Polygon {
     constructor(private readonly vertices: Coordinate[]) {

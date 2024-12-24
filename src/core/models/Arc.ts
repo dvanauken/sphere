@@ -3,7 +3,7 @@ import { Coordinate } from "./Coordinate";
 import { Distance } from "./Distance";
 import { Sphere } from "./Sphere";
 import { Point } from "./Point";
-import { CoordinateSystem } from "../CoordinateSystem";
+import { CoordinateSystem } from "../coordinate/CoordinateSystem";
 
 export class Arc {
     private constructor(

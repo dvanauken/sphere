@@ -1,4 +1,4 @@
-import { CoordinateSystem } from '../CoordinateSystem';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem';
 import { Azimuth } from './Azimuth';
 import { Coordinate } from './Coordinate';
 import { Distance } from './Distance';

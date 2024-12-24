@@ -1,12 +1,10 @@
-import { Coordinate } from '../models/Coordinate';
-import { Point } from '../models/Point';
-import { GreatCircle } from '../models/GreatCircle';
-import { SmallCircle } from '../models/SmallCircle';
-import { Triangle } from '../models/Triangle';
-import { TypeMapping } from './TypeMapping';
-import { Feature } from './Feature';
-import { Distance } from '../models/Distance';
-import { CoordinateSystem } from '../CoordinateSystem';
+import { Coordinate } from "../../core/models/Coordinate";
+import { Distance } from "../../core/models/Distance";
+import { GreatCircle } from "../../core/models/GreatCircle";
+import { SmallCircle } from "../../core/models/SmallCircle";
+import { Triangle } from "../../core/models/Triangle";
+import { Feature } from "./Feature";
+import { TypeMapping } from "./TypeMapping";
 
 export class TypeConverter {
     static toFeature(source: any): Feature {

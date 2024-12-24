@@ -3,7 +3,7 @@ import { Point } from './Point';
 import { Sphere } from './Sphere';
 import { Distance } from './Distance';
 import { Angle } from './Angle';
-import { CoordinateSystem } from '../CoordinateSystem';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem';
 
 export class Triangle {
     private readonly points: Point[];
