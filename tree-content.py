@@ -5,7 +5,7 @@ from datetime import datetime
 path = "."
 
 # List of folders to exclude
-exclude_folders = {"node_modules", ".angular", ".git", "dist", ".idea"}
+exclude_folders = {"node_modules", ".angular", ".git", ".idea"}
 
 # Define the output file name using a timestamp
 timestamp = datetime.now().strftime("%Y%m%d%H%M%S")

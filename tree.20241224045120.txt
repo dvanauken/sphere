@@ -1,0 +1,165 @@
++-- .gitignore
++-- New Text Document.txt
++-- README.md
++-- benchmarks
+|   -- README.md
++-- dist
+|   +-- src
+|   |   +-- CoordinateSystem.js
+|   |   +-- adapters
+|   |   |   -- geojson
+|   |   |      +-- Feature.js
+|   |   |      +-- FeatureCollection.js
+|   |   |      +-- GeoConversionError.js
+|   |   |      +-- GeoConverter.js
+|   |   |      +-- GeoReader.js
+|   |   |      +-- GeoRegistry.js
+|   |   |      +-- GeoWriter.js
+|   |   |      +-- GeometryCollection.js
+|   |   |      +-- LineString.js
+|   |   |      +-- MultiLineString.js
+|   |   |      +-- MultiPoint.js
+|   |   |      +-- MultiPolygon.js
+|   |   |      +-- Point.js
+|   |   |      +-- Polygon.js
+|   |   |      +-- TypeConverter.js
+|   |   |      -- TypeMapping.js
+|   |   +-- core
+|   |   |   +-- coordinate
+|   |   |   |   -- CoordinateSystem.js
+|   |   |   +-- errors
+|   |   |   |   +-- GeoConversionError.js
+|   |   |   |   +-- GeoError.js
+|   |   |   |   +-- GeoValidationError.js
+|   |   |   |   -- index.js
+|   |   |   -- models
+|   |   |      +-- Angle.js
+|   |   |      +-- Arc.js
+|   |   |      +-- Azimuth.js
+|   |   |      +-- Bearing.js
+|   |   |      +-- Coordinate.js
+|   |   |      +-- Distance.js
+|   |   |      +-- GreatCircle.js
+|   |   |      +-- Point.js
+|   |   |      +-- Polygon.js
+|   |   |      +-- SmallCircle.js
+|   |   |      +-- Sphere.js
+|   |   |      +-- SphericalTrigonometry.js
+|   |   |      -- Triangle.js
+|   |   +-- errors
+|   |   |   +-- GeoConversionError.js
+|   |   |   +-- GeoError.js
+|   |   |   +-- GeoValidationError.js
+|   |   |   -- index.js
+|   |   +-- geojson
+|   |   |   +-- Feature.js
+|   |   |   +-- FeatureCollection.js
+|   |   |   +-- GeoConversionError.js
+|   |   |   +-- GeoConverter.js
+|   |   |   +-- GeoReader.js
+|   |   |   +-- GeoRegistry.js
+|   |   |   +-- GeoWriter.js
+|   |   |   +-- GeometryCollection.js
+|   |   |   +-- LineString.js
+|   |   |   +-- MultiLineString.js
+|   |   |   +-- MultiPoint.js
+|   |   |   +-- MultiPolygon.js
+|   |   |   +-- Point.js
+|   |   |   +-- Polygon.js
+|   |   |   +-- TypeConverter.js
+|   |   |   -- TypeMapping.js
+|   |   +-- index.js
+|   |   +-- models
+|   |   |   +-- Angle.js
+|   |   |   +-- Arc.js
+|   |   |   +-- Azimuth.js
+|   |   |   +-- Bearing.js
+|   |   |   +-- Coordinate.js
+|   |   |   +-- Distance.js
+|   |   |   +-- GreatCircle.js
+|   |   |   +-- Point.js
+|   |   |   +-- Polygon.js
+|   |   |   +-- SmallCircle.js
+|   |   |   +-- Sphere.js
+|   |   |   +-- SphericalTrigonometry.js
+|   |   |   -- Triangle.js
+|   |   +-- services
+|   |   |   +-- CalculationService.js
+|   |   |   +-- GeometryService.js
+|   |   |   +-- IntersectionService.js
+|   |   |   -- VisibilityService.js
+|   |   -- utils
+|   |      +-- converters.js
+|   |      -- validators.js
+|   -- test
+|      +-- Arc.test.js
+|      +-- GreatCircle.test.js
+|      +-- __fixtures__
+|      |   +-- angles.js
+|      |   +-- coordinates.js
+|      |   -- distances.js
+|      +-- __helpers__
+|      |   +-- assertions.js
+|      |   +-- constants.js
+|      |   -- generators.js
+|      +-- adapters
+|      |   -- geojson
+|      |      +-- Feature.test.js
+|      |      +-- FeatureCollection.test.js
+|      |      +-- GeoConverter.test.js
+|      |      +-- GeoReader.test.js
+|      |      +-- GeoRegistry.test.js
+|      |      +-- GeoWriter.test.js
+|      |      +-- GeometryCollection.test.js
+|      |      +-- LineString.test.js
+|      |      +-- MultiLineString.test.js
+|      |      +-- MultiPoint.test.js
+|      |      +-- MultiPolygon.test.js
+|      |      +-- Point.test.js
+|      |      +-- Polygon.test.js
+|      |      +-- TypeConverter.test.js
+|      |      -- TypeMapping.test.js
+|      +-- core
+|      |   +-- coordinate
+|      |   |   -- CoordinateSystem.test.js
+|      |   +-- errors
+|      |   |   +-- GeoConversionError.test.js
+|      |   |   +-- GeoError.test.js
+|      |   |   -- GeoValidationError.test.js
+|      |   -- models
+|      |      +-- Angle.test.js
+|      |      +-- Arc.test.js
+|      |      +-- Azimuth.test.js
+|      |      +-- Bearing.test.js
+|      |      +-- Coordinate.test.js
+|      |      +-- Distance.test.js
+|      |      +-- GreatCircle.test.js
+|      |      +-- Point.test.js
+|      |      +-- Polygon.test.js
+|      |      +-- SmallCircle.test.js
+|      |      +-- Sphere.test.js
+|      |      +-- SphericalTrigonometry.test.js
+|      |      -- Triangle.test.js
+|      +-- helpers
+|      |   -- assertions.js
+|      -- integration
+|         +-- geojson-conversion.test.js
+|         -- geometric-calculations.test.js
++-- docs
+|   -- README.md
++-- examples
+|   -- README.md
++-- package.json
++-- scripts
+|   -- README.md
++-- src
+. . .
++-- test
+. . .
++-- test-setup.bat
++-- tree-content.py
++-- tree.20241224044746.txt
++-- tree.20241224044845.txt
++-- tree.20241224044939.txt
++-- tsconfig.json
+-- vitest.config.ts: import { defineConfig } from 'vitest/config'  export default defineConfig({   test: {     globals: true,     environment: 'node',     include: ['test/**/*.test.ts'],     coverage: {       provider: 'v8',       reporter: ['text', 'json', 'html'],     },     testTimeout: 20000,     hookTimeout: 20000,     teardownTimeout: 1000   } })

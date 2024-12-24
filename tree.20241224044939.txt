@@ -1,0 +1,33 @@
++-- .gitignore
++-- New Text Document.txt
++-- README.md
++-- benchmarks
+|   -- README.md
++-- dist
++-- docs
+|   -- README.md
++-- examples
+|   -- README.md
++-- package-lock.json
++-- package.json
++-- reorganize.bat
++-- scripts
+|   -- README.md
++-- test-backup
+|   +-- adapters
+|   |   -- geojson
+|   +-- core
+|   |   +-- coordinate
+|   |   -- models
+|   |      +-- Arc.test.ts: import { describe, it, expect } from 'vitest' import { Arc } from '../src/models/Arc.js' import { Coordinate } from '../src/models/Coordinate.js' import { assertDistanceNearlyEqual } from './helpers/assertions'  describe('Arc Calculations', () => {   it('should create simple arc with default radius', () => {     const arc = Arc.onSphere()     const circumference = arc.length()     const expectedCircumference = 2 * Math.PI * 6371      assertDistanceNearlyEqual(       circumference.inKilometers(),       expectedCircumference,       1,       'Default arc should have Earth\'s circumference'     )   })    it('should calculate great circle arc between two points', () => {     const london = new Coordinate(51.5074, -0.1278)     const paris = new Coordinate(48.8566, 2.3522)     const arc = Arc.fromPoints(london, paris)     const length = arc.length()      assertDistanceNearlyEqual(       length.inKilometers(),       344,       1,       'London-Paris arc length should be about 344 km'     )   }) })
+|   |      -- GreatCircle.test.ts: import { describe, it, expect } from 'vitest' import { GreatCircle } from '../src/models/GreatCircle.js' import { Coordinate } from '../src/models/Coordinate.js' import { Distance } from '../src/models/Distance.js'  describe('GreatCircle Calculations', () => {   const london = new Coordinate(51.5074, -0.1278)   const nyc = new Coordinate(40.7128, -74.0060)    it('should calculate distances using default Earth radius', () => {     const distance = new GreatCircle(london, nyc).distance()          // Second parameter specifies decimal points to check     expect(distance.inKilometers()).toBeCloseTo(5570, 0)     expect(distance.inMiles()).toBeCloseTo(3461, 0)   })    it('should handle zero distance', () => {     const distance = new GreatCircle(london, london)       .withSphere(Distance.fromKilometers(6371))       .distance()            expect(distance.inKilometers()).toBeCloseTo(0, 2)   }) })
+|   +-- fixtures
+|   -- utils
+|      -- helpers
+|         -- assertions.ts: // test/helpers/assertions.ts import assert from 'node:assert';  export function assertNearlyEqual(     actual: number,     expected: number,     tolerance: number,     message?: string ) {     const diff = Math.abs(actual - expected);     assert.ok(         diff <= tolerance,         message || `Expected ${actual} to be within ${tolerance} of ${expected} (diff: ${diff})`     ); }  export function assertDistanceNearlyEqual(     actual: number,     expected: number,     toleranceKm: number = 0.1,     message?: string ) {     assertNearlyEqual(         actual,         expected,         toleranceKm,         message || `Distance ${actual}km should be within ${toleranceKm}km of ${expected}km`     ); }
++-- test-setup.bat
++-- tree-content.py
++-- tree.20241224044746.txt
++-- tree.20241224044845.txt
++-- tsconfig.json
+-- vitest.config.ts: import { defineConfig } from 'vitest/config'  export default defineConfig({   test: {     globals: true,     environment: 'node',     include: ['test/**/*.test.ts'],     coverage: {       provider: 'v8',       reporter: ['text', 'json', 'html'],     },     testTimeout: 20000,     hookTimeout: 20000,     teardownTimeout: 1000   } })
