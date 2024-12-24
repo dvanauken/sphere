@@ -8,11 +8,15 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    // Either remove rootDir completely or set it to the project root
-    "rootDir": "."  // Changed from "./src" to "."
+    "rootDir": ".",
+    "declaration": true,           // Add this for .d.ts files
+    "declarationMap": true,        // Add this for source maps
+    "sourceMap": true,            // Add this for debugging
+    "importHelpers": true         // Add this for better compatibility
   },
-  "include": 
-    ["src/**/*", "test/**/*"
+  "include": [
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": ["node_modules"]
 }

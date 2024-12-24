@@ -20,10 +20,10 @@
     "url": "git+https://github.com/dvanauken/sphere.git"
   },
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.d.ts",
-    "dist/**/*.js.map",
-    "dist/**/*.d.ts.map",
+    "dist/src/**/*.js",                
+    "dist/src/**/*.d.ts",
+    "dist/src/**/*.js.map",
+    "dist/src/**/*.d.ts.map",
     "README.md",
     "package.json",
     "LICENSE"
