@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@dvanauken/sphere",
-  "version": "0.1.0-alpha.1003",
+  "version": "0.1.0-alpha.1004",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/dvanauken/sphere.git"
   },
   "files": [
-    "dist/src/**/*.js",                
+    "dist/src/**/*.js",
     "dist/src/**/*.d.ts",
     "dist/src/**/*.js.map",
     "dist/src/**/*.d.ts.map",
