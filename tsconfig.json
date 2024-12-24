@@ -7,12 +7,12 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
     "rootDir": ".",
-    "declaration": true,           // Add this for .d.ts files
-    "declarationMap": true,        // Add this for source maps
-    "sourceMap": true,            // Add this for debugging
-    "importHelpers": true         // Add this for better compatibility
+    "outDir": "./dist",
+    "declaration": true,            // Only need once
+    "sourceMap": false,            // Set to false for production
+    "declarationMap": false,       // Set to false for production
+    "importHelpers": true          // For better compatibility
   },
   "include": [
     "src/**/*",
