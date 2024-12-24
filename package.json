@@ -2,14 +2,21 @@
   "type": "module",
   "name": "@dvanauken/sphere",
   "version": "0.1.0-alpha.1006",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
+    }
+  },
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rimraf dist",
     "prebuild": "npm run clean && git add . && (git commit -m \"Pre-release commit\" || exit 0)",
     "build": "tsc",
-    "start": "node build/index.js",
+    "start": "node dist/src/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -34,6 +41,15 @@
   "dependencies": {
     "typescript": "^4.5.2"
   },
+  "peerDependencies": {
+    "@angular/core": "^16.2.0",
+    "tslib": "^2.3.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular/core": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
@@ -43,12 +59,6 @@
     "tsx": "^4.19.2",
     "vitest": "^1.6.0"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "keywords": [
     "typescript",
     "geometry",
@@ -56,6 +66,7 @@
     "spherical-geometry",
     "navigation"
   ],
+  "sideEffects": false,
   "author": "dvanauken",
   "license": "Proprietary"
 }
