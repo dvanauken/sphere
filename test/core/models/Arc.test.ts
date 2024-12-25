@@ -1,11 +1,10 @@
 // Arc test file 
 import { describe, it, expect } from 'vitest';
-import { Arc } from '../../../src/core/models/Arc';
-import { Angle } from '../../../src/core/models/Angle';
-import { Distance } from '../../../src/core/models/Distance';
-import { Sphere } from '../../../src/core/models/Sphere';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertDistanceNearlyEqual, assertCoordinateNearlyEqual } from '../../__helpers__/assertions';
+import { Arc } from '../../../src/core/models/Arc.js';
+import { Angle } from '../../../src/core/models/Angle.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertDistanceNearlyEqual, assertCoordinateNearlyEqual } from '../../__helpers__/assertions.js';
 import { 
     LONDON,
     PARIS,
@@ -13,14 +12,14 @@ import {
     TOKYO,
     EQUATOR_PRIME,
     NORTH_POLE
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
 import {
     EARTH_RADIUS,
     LONDON_TO_PARIS,
     TINY_DISTANCE,
     ZERO_DISTANCE
-} from '../../__fixtures__/distances';
-import { Coordinate } from '../../../src/core/models/Coordinate';
+} from '../../__fixtures__/distances.js';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
 
 describe('Arc', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

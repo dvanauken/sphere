@@ -1,9 +1,8 @@
-import { Coordinate } from './Coordinate';
-import { Point } from './Point';
-import { Distance } from './Distance';
-import { Angle } from './Angle';
-import { Sphere } from './Sphere';
-import { CoordinateSystem } from '../coordinate/CoordinateSystem';
+import { Coordinate } from './Coordinate.js';
+import { Point } from './Point.js';
+import { Distance } from './Distance.js';
+import { Sphere } from './Sphere.js';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem.js';
 
 export class SmallCircle {
     private readonly centerPoint: Point;

@@ -1,4 +1,4 @@
-import { Distance } from "./Distance";
+import { Distance } from "./Distance.js";
 
 export class Sphere {
     private static readonly DEFAULT_RADIUS = Distance.fromKilometers(6371);

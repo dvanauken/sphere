@@ -1,17 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { TypeConverter } from '../../src/adapters/geojson/TypeConverter';
-import { GeoConverter } from '../../src/adapters/geojson/GeoConverter';
-import { Coordinate } from '../../src/core/models/Coordinate';
-import { GreatCircle } from '../../src/core/models/GreatCircle';
-import { SmallCircle } from '../../src/core/models/SmallCircle';
-import { Triangle } from '../../src/core/models/Triangle';
-import { Distance } from '../../src/core/models/Distance';
+import { TypeConverter } from '../../src/adapters/geojson/TypeConverter.js';
+import { Coordinate } from '../../src/core/models/Coordinate.js';
+import { GreatCircle } from '../../src/core/models/GreatCircle.js';
+import { SmallCircle } from '../../src/core/models/SmallCircle.js';
+import { Triangle } from '../../src/core/models/Triangle.js';
+import { Distance } from '../../src/core/models/Distance.js';
 import {
     LONDON,
     PARIS,
     NEW_YORK,
     TOKYO
-} from '../__fixtures__/coordinates';
+} from '../__fixtures__/coordinates.js';
 
 describe('GeoJSON Integration', () => {
     describe('Route Planning Data Exchange', () => {

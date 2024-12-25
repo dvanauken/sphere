@@ -1,15 +1,14 @@
 // Triangle test file 
 import { describe, it, expect } from 'vitest';
-import { Triangle } from '../../../src/core/models/Triangle';
-import { Angle } from '../../../src/core/models/Angle';
-import { Distance } from '../../../src/core/models/Distance';
-import { Sphere } from '../../../src/core/models/Sphere';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { Triangle } from '../../../src/core/models/Triangle.js';
+import { Angle } from '../../../src/core/models/Angle.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import {
     assertDistanceNearlyEqual,
     assertAngleNearlyEqual,
     assertAreaNearlyEqual
-} from '../../__helpers__/assertions';
+} from '../../__helpers__/assertions.js';
 import {
     LONDON,
     PARIS,
@@ -17,15 +16,15 @@ import {
     TRIANGLE_VERTEX_1,
     TRIANGLE_VERTEX_2,
     TRIANGLE_VERTEX_3
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
 import {
     EARTH_RADIUS
-} from '../../__fixtures__/distances';
+} from '../../__fixtures__/distances.js';
 import {
     EQUILATERAL,
     RIGHT_ANGLE
-} from '../../__fixtures__/angles';
-import { Coordinate } from '../../../src/core/models/Coordinate';
+} from '../../__fixtures__/angles.js';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
 
 describe('Triangle', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

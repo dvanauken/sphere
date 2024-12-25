@@ -1,9 +1,9 @@
-import { CoordinateSystem } from '../coordinate/CoordinateSystem';
-import { Azimuth } from './Azimuth';
-import { Coordinate } from './Coordinate';
-import { Distance } from './Distance';
-import { Point } from './Point';
-import { Sphere } from './Sphere';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem.js';
+import { Azimuth } from './Azimuth.js';
+import { Coordinate } from './Coordinate.js';
+import { Distance } from './Distance.js';
+import { Point } from './Point.js';
+import { Sphere } from './Sphere.js';
 
 interface PointGenerationOptions {
    spacing?: Distance;

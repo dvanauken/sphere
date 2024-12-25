@@ -1,6 +1,6 @@
-import { Coordinate } from './Coordinate';
-import { Angle } from './Angle';
-import { Azimuth } from './Azimuth';
+import { Coordinate } from './Coordinate.js';
+import { Angle } from './Angle.js';
+import { Azimuth } from './Azimuth.js';
 
 export class Bearing {
     private constructor(

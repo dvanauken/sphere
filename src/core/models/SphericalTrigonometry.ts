@@ -1,5 +1,5 @@
-import { Angle } from "./Angle";
-import { Distance } from "./Distance";
+import { Angle } from "./Angle.js";
+import { Distance } from "./Distance.js";
 
 // For Law of Sines/Cosines calculations, we should use Distance directly
 export class SphericalTrigonometry {

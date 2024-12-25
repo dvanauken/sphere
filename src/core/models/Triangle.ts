@@ -1,9 +1,9 @@
-import { Coordinate } from './Coordinate';
-import { Point } from './Point';
-import { Sphere } from './Sphere';
-import { Distance } from './Distance';
-import { Angle } from './Angle';
-import { CoordinateSystem } from '../coordinate/CoordinateSystem';
+import { Coordinate } from './Coordinate.js';
+import { Point } from './Point.js';
+import { Sphere } from './Sphere.js';
+import { Distance } from './Distance.js';
+import { Angle } from './Angle.js';
+import { CoordinateSystem } from '../coordinate/CoordinateSystem.js';
 
 export class Triangle {
     private readonly points: Point[];

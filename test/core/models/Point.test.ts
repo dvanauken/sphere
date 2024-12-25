@@ -1,8 +1,8 @@
 // Point test file 
 import { describe, it, expect } from 'vitest';
-import { Point } from '../../../src/core/models/Point';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { MATH_CONSTANTS } from '../../__helpers__/constants';
+import { Point } from '../../../src/core/models/Point.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { MATH_CONSTANTS } from '../../__helpers__/constants.js';
 
 describe('Point', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { SmallCircle } from '../../../src/core/models/SmallCircle';
-import { Distance } from '../../../src/core/models/Distance';
-import { Sphere } from '../../../src/core/models/Sphere';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { SmallCircle } from '../../../src/core/models/SmallCircle.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { Sphere } from '../../../src/core/models/Sphere.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
     assertDistanceNearlyEqual,
     assertCoordinateNearlyEqual,
     assertAreaNearlyEqual
-} from '../../__helpers__/assertions';
+} from '../../__helpers__/assertions.js';
 import {
     LONDON,
     PARIS,
@@ -15,14 +15,14 @@ import {
     NORTH_POLE,
     CIRCLE_CENTER,
     CIRCLE_POINT
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
 import {
     EARTH_RADIUS,
     ONE_KILOMETER,
     TINY_DISTANCE
-} from '../../__fixtures__/distances';
-import { GreatCircle } from '../../../src/core/models/GreatCircle';
-import { Coordinate } from '../../../src/core/models/Coordinate';
+} from '../../__fixtures__/distances.js';
+import { GreatCircle } from '../../../src/core/models/GreatCircle.js';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
 
 describe('SmallCircle', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

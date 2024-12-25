@@ -1,6 +1,6 @@
-import { CoordinateSystem } from "../coordinate/CoordinateSystem";
-import { Coordinate } from "./Coordinate";
-import { Point } from "./Point";
+import { CoordinateSystem } from "../coordinate/CoordinateSystem.js";
+import { Coordinate } from "./Coordinate.js";
+import { Point } from "./Point.js";
 
 export class Polygon {
     constructor(private readonly vertices: Coordinate[]) {

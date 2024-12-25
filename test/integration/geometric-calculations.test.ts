@@ -1,19 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { Coordinate } from '../../src/core/models/Coordinate';
-import { GreatCircle } from '../../src/core/models/GreatCircle';
-import { SmallCircle } from '../../src/core/models/SmallCircle';
-import { Triangle } from '../../src/core/models/Triangle';
-import { Distance } from '../../src/core/models/Distance';
-import { Angle } from '../../src/core/models/Angle';
-import { Azimuth } from '../../src/core/models/Azimuth';
-import { Bearing } from '../../src/core/models/Bearing';
-import { assertDistanceNearlyEqual, assertAngleNearlyEqual } from '../__helpers__/assertions';
+import { Coordinate } from '../../src/core/models/Coordinate.js';
+import { GreatCircle } from '../../src/core/models/GreatCircle.js';
+import { SmallCircle } from '../../src/core/models/SmallCircle.js';
+import { Triangle } from '../../src/core/models/Triangle.js';
+import { Distance } from '../../src/core/models/Distance.js';
+import { Azimuth } from '../../src/core/models/Azimuth.js';
+import { Bearing } from '../../src/core/models/Bearing.js';
 import {
     LONDON,
     PARIS,
     NEW_YORK,
     TOKYO
-} from '../__fixtures__/coordinates';
+} from '../__fixtures__/coordinates.js';
 
 describe('Geometric Calculations Integration', () => {
     describe('Flight Route Planning', () => {

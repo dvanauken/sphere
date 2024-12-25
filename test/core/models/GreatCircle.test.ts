@@ -1,19 +1,18 @@
 import { describe, it, expect } from 'vitest';
-import { GreatCircle } from '../../../src/core/models/GreatCircle';
-import { Distance } from '../../../src/core/models/Distance';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { GreatCircle } from '../../../src/core/models/GreatCircle.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
     assertDistanceNearlyEqual,
     assertCoordinateNearlyEqual
-} from '../../__helpers__/assertions';
+} from '../../__helpers__/assertions.js';
 import {
     LONDON,
     PARIS,
     EQUATOR_PRIME,
     TOKYO
-} from '../../__fixtures__/coordinates';
-import { ONE_KILOMETER } from '../../__fixtures__/distances';
-import { Coordinate } from '../../../src/core/models/Coordinate';
+} from '../../__fixtures__/coordinates.js';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
 
 describe('GreatCircle', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

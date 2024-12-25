@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { Distance } from '../../../src/core/models/Distance';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertDistanceNearlyEqual } from '../../__helpers__/assertions';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertDistanceNearlyEqual } from '../../__helpers__/assertions.js';
 import {
     ONE_KILOMETER,
     ONE_MILE,
     ONE_NAUTICAL_MILE,
     LONDON_TO_PARIS
-} from '../../__fixtures__/distances';
+} from '../../__fixtures__/distances.js';
 
 describe('Distance', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

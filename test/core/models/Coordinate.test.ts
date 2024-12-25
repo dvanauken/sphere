@@ -1,15 +1,15 @@
 // Coordinate test file 
 import { describe, it, expect } from 'vitest';
-import { Coordinate } from '../../../src/core/models/Coordinate';
-import { ERROR_MESSAGES, TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertCoordinateNearlyEqual } from '../../__helpers__/assertions';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
+import { ERROR_MESSAGES, TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertCoordinateNearlyEqual } from '../../__helpers__/assertions.js';
 import { 
     LONDON,
     TOKYO,
     NORTH_POLE,
     SOUTH_POLE,
     MOUNT_EVEREST
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
 
 describe('Coordinate', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

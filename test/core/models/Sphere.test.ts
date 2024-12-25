@@ -1,14 +1,14 @@
 // Sphere test file 
 import { describe, it, expect } from 'vitest';
-import { Sphere } from '../../../src/core/models/Sphere';
-import { Distance } from '../../../src/core/models/Distance';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertDistanceNearlyEqual } from '../../__helpers__/assertions';
+import { Sphere } from '../../../src/core/models/Sphere.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertDistanceNearlyEqual } from '../../__helpers__/assertions.js';
 import { 
     EARTH_RADIUS,
     ONE_KILOMETER,
     TINY_DISTANCE 
-} from '../../__fixtures__/distances';
+} from '../../__fixtures__/distances.js';
 
 describe('Sphere', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

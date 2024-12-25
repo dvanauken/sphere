@@ -1,17 +1,17 @@
 // SphericalTrigonometry test file 
 import { describe, it, expect } from 'vitest';
-import { SphericalTrigonometry } from '../../../src/core/models/SphericalTrigonometry';
-import { Distance } from '../../../src/core/models/Distance';
-import { Angle } from '../../../src/core/models/Angle';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { SphericalTrigonometry } from '../../../src/core/models/SphericalTrigonometry.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { Angle } from '../../../src/core/models/Angle.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
     assertDistanceNearlyEqual,
     assertAngleNearlyEqual
-} from '../../__helpers__/assertions';
+} from '../../__helpers__/assertions.js';
 import {
     RIGHT_ANGLE,
     EQUILATERAL
-} from '../../__fixtures__/angles';
+} from '../../__fixtures__/angles.js';
 
 describe('SphericalTrigonometry', () => {
     describe('Law of Cosines', () => {

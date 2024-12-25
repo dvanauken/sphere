@@ -1,9 +1,9 @@
-import { Angle } from "./Angle";
-import { Coordinate } from "./Coordinate";
-import { Distance } from "./Distance";
-import { Sphere } from "./Sphere";
-import { Point } from "./Point";
-import { CoordinateSystem } from "../coordinate/CoordinateSystem";
+import { Angle } from "./Angle.js";
+import { Coordinate } from "./Coordinate.js";
+import { Distance } from "./Distance.js";
+import { Sphere } from "./Sphere.js";
+import { Point } from "./Point.js";
+import { CoordinateSystem } from "../coordinate/CoordinateSystem.js";
 
 export class Arc {
     private constructor(

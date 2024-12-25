@@ -1,4 +1,4 @@
-import { Arc } from "./Arc";
+import { Arc } from "./Arc.js";
 import { Distance } from './Distance.js';
 
 

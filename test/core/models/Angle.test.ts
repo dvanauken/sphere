@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { Angle } from '../../../src/core/models/Angle';
-import { Distance } from '../../../src/core/models/Distance';
-import { Arc } from '../../../src/core/models/Arc';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertAngleNearlyEqual } from '../../__helpers__/assertions';
+import { Angle } from '../../../src/core/models/Angle.js';
+import { Distance } from '../../../src/core/models/Distance.js';
+import { Arc } from '../../../src/core/models/Arc.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertAngleNearlyEqual } from '../../__helpers__/assertions.js';
 import {
     RIGHT_ANGLE,
     STRAIGHT_ANGLE,
@@ -13,7 +13,7 @@ import {
     OBTUSE,
     NEGATIVE,
     OVER_360
-} from '../../__fixtures__/angles';
+} from '../../__fixtures__/angles.js';
 
 describe('Angle', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

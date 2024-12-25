@@ -1,8 +1,8 @@
 // Bearing test file 
 import { describe, it, expect } from 'vitest';
-import { Azimuth } from '../../../src/core/models/Azimuth';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
-import { assertAngleNearlyEqual } from '../../__helpers__/assertions';
+import { Azimuth } from '../../../src/core/models/Azimuth.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
+import { assertAngleNearlyEqual } from '../../__helpers__/assertions.js';
 import {
     LONDON,
     PARIS,
@@ -15,15 +15,15 @@ import {
     QUAD_2,
     QUAD_3,
     QUAD_4
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
 import {
     NORTH,
     EAST,
     SOUTH,
     WEST
-} from '../../__fixtures__/angles';
-import { Coordinate } from '../../../src/core/models/Coordinate';
-import { Angle } from '../../../src';
+} from '../../__fixtures__/angles.js';
+import { Coordinate } from '../../../src/core/models/Coordinate.js';
+import { Angle } from '../../../src/core/models/Angle.js';
 
 describe('Azimuth', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {
