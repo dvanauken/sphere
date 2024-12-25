@@ -13,6 +13,7 @@ EXCLUDE_FOLDERS = {
     "*.spec.ts",
     "*.scss",
     "*.pdf",
+    "*.js",
     "*.jsonxxxx",
     "*.geojson",
     "*.ps1",

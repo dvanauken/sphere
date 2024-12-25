@@ -17,7 +17,7 @@ describe('GeoJSON Integration', () => {
         it('should convert complex route to GeoJSON and back', () => {
             // Create a multi-leg route
             const waypoints = [LONDON, PARIS, NEW_YORK, TOKYO];
-            const routes = [];
+            const routes: GreatCircle[] = [];
             
             // Generate route segments
             for (let i = 0; i < waypoints.length - 1; i++) {
@@ -89,7 +89,7 @@ describe('GeoJSON Integration', () => {
 
         it('should handle collection of search areas', () => {
             // Create multiple search areas
-            const areas = [];
+            const areas: SmallCircle[] = [];  // <-- Type added here
             const baseCenter = new Coordinate(40.7128, -74.006);
             
             // Generate 3 overlapping search circles

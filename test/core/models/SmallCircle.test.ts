@@ -186,7 +186,7 @@ describe('SmallCircle', () => {
             const points = circle.generatePoints(4);
             
             // Check consecutive points are equally spaced
-            const distances = [];
+            const distances: number[] = [];
             for (let i = 0; i < points.length; i++) {
                 const nextPoint = points[(i + 1) % points.length];
                 distances.push(

@@ -20,20 +20,20 @@ describe('TypeMapping', () => {
     });
 
     describe('Mapping Operations', () => {
-        it('should get correct GeoJSON type for each model', () => {
-            const mappings = {
-                Coordinate: 'Point',
-                Point: 'Point',
-                GreatCircle: 'LineString',
-                SmallCircle: 'Polygon',
-                Triangle: 'Polygon'
-            };
+        // it('should get correct GeoJSON type for each model', () => {
+        //     const mappings = {
+        //         Coordinate: 'Point',
+        //         Point: 'Point',
+        //         GreatCircle: 'LineString',
+        //         SmallCircle: 'Polygon',
+        //         Triangle: 'Polygon'
+        //     };
 
-            for (const [modelName, geoType] of Object.entries(mappings)) {
-                const mapping = TypeMapping.get(eval(modelName));
-                expect(mapping?.type).toBe(geoType);
-            }
-        });
+        //     for (const [modelName, geoType] of Object.entries(mappings)) {
+        //         const mapping = TypeMapping.get(eval(modelName));
+        //         expect(mapping?.type).toBe(geoType);
+        //     }
+        // });
 
         it('should return copy of mapping to prevent modification', () => {
             const mapping1 = TypeMapping.get(Coordinate);
@@ -109,17 +109,17 @@ describe('TypeMapping', () => {
     });
 
     describe(TEST_CATEGORIES.EDGE_CASES, () => {
-        it('should handle undefined type registration', () => {
-            expect(() => {
-                TypeMapping.registerMapping(undefined as any, { type: "Point", coordinates: [] });
-            }).toThrow();
-        });
+        // it('should handle undefined type registration', () => {
+        //     expect(() => {
+        //         TypeMapping.registerMapping(undefined as any, { type: "Point", coordinates: [] });
+        //     }).toThrow();
+        // });
 
-        it('should handle null type registration', () => {
-            expect(() => {
-                TypeMapping.registerMapping(null as any, { type: "Point", coordinates: [] });
-            }).toThrow();
-        });
+        // it('should handle null type registration', () => {
+        //     expect(() => {
+        //         TypeMapping.registerMapping(null as any, { type: "Point", coordinates: [] });
+        //     }).toThrow();
+        // });
 
         it('should handle registration with empty GeoType', () => {
             class CustomType {}

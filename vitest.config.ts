@@ -12,5 +12,15 @@ export default defineConfig({
     testTimeout: 20000,
     hookTimeout: 20000,
     teardownTimeout: 1000,
+    alias: {
+      '@': '/src',  // This allows imports from '@/...'
+      '~': '/test'  // This allows imports from '~/...'
+    }
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+      '~': '/test'
+    }
   }
 })
