@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { Distance } from '../../../src/core/models/Distance.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
-import { assertDistanceNearlyEqual } from '../../__helpers__/assertions.js';
+import { assertNumberNearlyEqual } from '../../__helpers__/assertions.js';
 import {
     ONE_KILOMETER,
     ONE_MILE,
@@ -33,7 +33,7 @@ describe('Distance', () => {
 
         it('should create distance from feet', () => {
             const distance = Distance.fromFeet(5280);
-            assertDistanceNearlyEqual(distance, ONE_MILE);
+            assertNumberNearlyEqual(distance, ONE_MILE);
         });
     });
 
@@ -81,7 +81,7 @@ describe('Distance', () => {
 
     describe(TEST_CATEGORIES.REAL_WORLD, () => {
         it('should calculate London to Paris distance', () => {
-            assertDistanceNearlyEqual(
+            assertNumberNearlyEqual(
                 LONDON_TO_PARIS,
                 Distance.fromKilometers(344),
                 1000  // 1km tolerance for real-world distance

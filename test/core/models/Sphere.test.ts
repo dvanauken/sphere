@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { Sphere } from '../../../src/core/models/Sphere.js';
 import { Distance } from '../../../src/core/models/Distance.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
-import { assertDistanceNearlyEqual } from '../../__helpers__/assertions.js';
+import { assertNumberNearlyEqual } from '../../__helpers__/assertions.js';
 import { 
     EARTH_RADIUS,
     ONE_KILOMETER,
@@ -14,13 +14,13 @@ describe('Sphere', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {
         it('should use default Earth radius when no radius provided', () => {
             const radius = Sphere.getRadius();
-            assertDistanceNearlyEqual(radius, EARTH_RADIUS);
+            assertNumberNearlyEqual(radius, EARTH_RADIUS);
         });
 
         it('should use custom radius when provided', () => {
             const customRadius = Distance.fromKilometers(2000);
             const radius = Sphere.getRadius(customRadius);
-            assertDistanceNearlyEqual(radius, customRadius);
+            assertNumberNearlyEqual(radius, customRadius);
         });
     });
 
@@ -71,7 +71,7 @@ describe('Sphere', () => {
     describe('Radius Validation', () => {
         it('should handle undefined radius by using Earth radius', () => {
             const radius = Sphere.getRadius(undefined);
-            assertDistanceNearlyEqual(radius, EARTH_RADIUS);
+            assertNumberNearlyEqual(radius, EARTH_RADIUS);
         });
 
         it('should handle zero radius', () => {
@@ -82,7 +82,7 @@ describe('Sphere', () => {
 
         it('should handle very small radius', () => {
             const radius = Sphere.getRadius(TINY_DISTANCE);
-            assertDistanceNearlyEqual(radius, TINY_DISTANCE);
+            assertNumberNearlyEqual(radius, TINY_DISTANCE);
         });
     });
 

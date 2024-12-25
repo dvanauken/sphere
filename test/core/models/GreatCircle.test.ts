@@ -3,7 +3,7 @@ import { GreatCircle } from '../../../src/core/models/GreatCircle.js';
 import { Distance } from '../../../src/core/models/Distance.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
-    assertDistanceNearlyEqual,
+    assertNumberNearlyEqual,
     assertCoordinateNearlyEqual
 } from '../../__helpers__/assertions.js';
 import {
@@ -35,7 +35,7 @@ describe('GreatCircle', () => {
         it('should calculate correct distance between points', () => {
             const circle = GreatCircle.from(LONDON).to(PARIS);
             const distance = circle.distance();
-            assertDistanceNearlyEqual(
+            assertNumberNearlyEqual(
                 distance,
                 Distance.fromKilometers(344), // ~344km from London to Paris
                 1000 // 1km tolerance

@@ -13,6 +13,3 @@ export class Sphere {
         (4/3) * Math.PI * Math.pow(radius.inMeters() / 1000, 3);
 }
 
-// // Usage:
-// const radius = Sphere.getRadius();  // Default 6371km
-// const customRadius = Sphere.getRadius(Distance.fromMiles(4000));

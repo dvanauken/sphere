@@ -5,7 +5,7 @@ import { Distance } from '../../../src/core/models/Distance.js';
 import { Angle } from '../../../src/core/models/Angle.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
-    assertDistanceNearlyEqual,
+    assertNumberNearlyEqual,
     assertAngleNearlyEqual
 } from '../../__helpers__/assertions.js';
 import {
@@ -46,8 +46,8 @@ describe('SphericalTrigonometry', () => {
             );
 
             // For equilateral triangle, all sides should be equal
-            assertDistanceNearlyEqual(arcC, arcA);
-            assertDistanceNearlyEqual(arcC, arcB);
+            assertNumberNearlyEqual(arcC, arcA);
+            assertNumberNearlyEqual(arcC, arcB);
         });
 
         it('should handle zero angle', () => {

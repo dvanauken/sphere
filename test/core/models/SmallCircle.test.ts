@@ -4,7 +4,7 @@ import { Distance } from '../../../src/core/models/Distance.js';
 import { Sphere } from '../../../src/core/models/Sphere.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import { 
-    assertDistanceNearlyEqual,
+    assertNumberNearlyEqual,
     assertCoordinateNearlyEqual,
     assertAreaNearlyEqual
 } from '../../__helpers__/assertions.js';
@@ -45,7 +45,7 @@ describe('SmallCircle', () => {
         it('should retrieve radius using getRadius', () => {
             const radius = ONE_KILOMETER;
             const circle = SmallCircle.withCenter(CIRCLE_CENTER).radius(radius);
-            assertDistanceNearlyEqual(circle.getRadius(), radius);
+            assertNumberNearlyEqual(circle.getRadius(), radius);
         });
 
         // it('should throw error for zero radius', () => {
@@ -113,7 +113,7 @@ describe('SmallCircle', () => {
             testCases.forEach(({ radius, expected }) => {
                 const circle = SmallCircle.withCenter(EQUATOR_PRIME)
                     .radius(radius);
-                assertDistanceNearlyEqual(
+                assertNumberNearlyEqual(
                     circle.circumference(),
                     expected,
                     radius.inMeters() * 0.01 // 1% tolerance
@@ -172,7 +172,7 @@ describe('SmallCircle', () => {
                 const distance = GreatCircle.from(CIRCLE_CENTER)
                     .to(point)
                     .distance();
-                assertDistanceNearlyEqual(
+                assertNumberNearlyEqual(
                     distance,
                     ONE_KILOMETER,
                     ONE_KILOMETER.inMeters() * 0.01 // 1% tolerance

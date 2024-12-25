@@ -5,7 +5,7 @@ import { Angle } from '../../../src/core/models/Angle.js';
 import { Distance } from '../../../src/core/models/Distance.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import {
-    assertDistanceNearlyEqual,
+    assertNumberNearlyEqual,
     assertAngleNearlyEqual,
     assertAreaNearlyEqual
 } from '../../__helpers__/assertions.js';
@@ -104,7 +104,7 @@ describe('Triangle', () => {
             const sumOfSides = new Distance(
                 sides.reduce((sum, side) => sum + side.inMeters(), 0)
             );
-            assertDistanceNearlyEqual(perimeter, sumOfSides);
+            assertNumberNearlyEqual(perimeter, sumOfSides);
         });
     });
 
