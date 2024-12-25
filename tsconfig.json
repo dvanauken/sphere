@@ -2,21 +2,23 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
-    "moduleResolution": "NodeNext",  // Changed from bundler to node
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": ".",
+
+    "rootDir": "./src",   // or keep "." if you want, see note below
     "outDir": "./dist",
-    "declaration": true,            // Only need once
-    "sourceMap": false,            // Set to false for production
-    "declarationMap": false,       // Set to false for production
-    "importHelpers": true          // For better compatibility
+
+    // These are optional but commonly used
+    "declaration": true,
+    "sourceMap": false,
+    "declarationMap": false,
+
+    // If you have importHelpers=true, remember to install 'tslib' 
+    "importHelpers": true
   },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
