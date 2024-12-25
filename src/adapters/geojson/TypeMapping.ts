@@ -1,8 +1,8 @@
-import { Coordinate } from "../../core/models/Coordinate";
-import { GreatCircle } from "../../core/models/GreatCircle";
-import { Point } from "../../core/models/Point";
-import { SmallCircle } from "../../core/models/SmallCircle";
-import { Triangle } from "../../core/models/Triangle";
+import { Coordinate } from "../../core/models/Coordinate.js";
+import { GreatCircle } from "../../core/models/GreatCircle.js";
+import { Point } from "../../core/models/Point.js";
+import { SmallCircle } from "../../core/models/SmallCircle.js";
+import { Triangle } from "../../core/models/Triangle.js";
 
 export interface GeoType {
     type: string;

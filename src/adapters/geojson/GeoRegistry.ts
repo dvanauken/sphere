@@ -1,6 +1,7 @@
-import { TypeConverter } from './TypeConverter';
-import { TypeMapping } from './TypeMapping';
-import { Feature } from './Feature';
+import { Feature } from "./Feature.js";
+import { TypeConverter } from "./TypeConverter.js";
+import { TypeMapping } from "./TypeMapping.js";
+
 
 export class GeoRegistry {
     private static readonly converters = new Map<string, TypeConverter>();

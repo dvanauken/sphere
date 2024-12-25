@@ -1,5 +1,5 @@
-// MultiPoint.ts
-import { Point } from "./Point";
+import { Point } from "./Point.js";
+
 
 export interface MultiPoint {
   type: "MultiPoint";

@@ -1,6 +1,6 @@
-import { Feature } from "./Feature";
-import { GeoReader } from "./GeoReader";
-import { GeoWriter } from "./GeoWriter";
+import { Feature } from "./Feature.js";
+import { GeoReader } from "./GeoReader.js";
+import { GeoWriter } from "./GeoWriter.js";
 
 export class GeoConverter {
   static toGeoJSON(input: any): Feature | Feature[] {

@@ -1,4 +1,4 @@
-import { Feature } from "./Feature";
+import { Feature } from "./Feature.js";
 
 export class GeoConversionError extends Error {
   constructor(

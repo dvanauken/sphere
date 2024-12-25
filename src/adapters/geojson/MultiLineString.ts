@@ -1,5 +1,5 @@
-// MultiLineString.ts
-import { LineString } from "./LineString";
+import { LineString } from "./LineString.js";
+
 
 export interface MultiLineString {
   type: "MultiLineString";

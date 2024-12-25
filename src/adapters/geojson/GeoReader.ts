@@ -1,5 +1,5 @@
-import { Feature } from "./Feature";
-import { GeoRegistry } from "./GeoRegistry";
+import { Feature } from "./Feature.js";
+import { GeoRegistry } from "./GeoRegistry.js";
 
 export class GeoReader {
   static read(feature: Feature): any {

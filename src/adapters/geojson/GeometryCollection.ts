@@ -1,9 +1,10 @@
-import { LineString } from "./LineString";
-import { MultiLineString } from "./MultiLineString";
-import { MultiPoint } from "./MultiPoint";
-import { MultiPolygon } from "./MultiPolygon";
-import { Point } from "./Point";
-import { Polygon } from "./Polygon";
+import { LineString } from "./LineString.js";
+import { MultiLineString } from "./MultiLineString.js";
+import { MultiPoint } from "./MultiPoint.js";
+import { MultiPolygon } from "./MultiPolygon.js";
+import { Point } from "./Point.js";
+import { Polygon } from "./Polygon.js";
+
 
 // GeometryCollection.ts
 export interface GeometryCollection {

@@ -1,5 +1,5 @@
-// MultiPolygon.ts
-import { Polygon } from "./Polygon";
+import { Polygon } from "./Polygon.js";
+
 
 export interface MultiPolygon {
   type: "MultiPolygon";
