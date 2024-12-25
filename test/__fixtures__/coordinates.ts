@@ -1,5 +1,6 @@
 // Common test coordinates 
-import { Coordinate } from '@/core/models/Coordinate';
+import { Coordinate } from '../../src/core/models/Coordinate.js';
+
 
 // Major Cities
 export const LONDON = new Coordinate(51.5074, -0.1278);
