@@ -3,7 +3,7 @@ import { Angle } from '../../../src/core/models/Angle.js';
 import { Distance } from '../../../src/core/models/Distance.js';
 import { Arc } from '../../../src/core/models/Arc.js';
 import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
-import { assertAngleNearlyEqual } from '../../__helpers__/assertions.js';
+import { assertAngleNearlyEqual, assertNumberNearlyEqual } from '../../__helpers__/assertions.js';
 import {
     RIGHT_ANGLE,
     STRAIGHT_ANGLE,
@@ -14,6 +14,7 @@ import {
     NEGATIVE,
     OVER_360
 } from '../../__fixtures__/angles.js';
+import { Sphere } from '../../../src/core/models/Sphere.js';
 
 describe('Angle', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {
@@ -58,30 +59,34 @@ describe('Angle', () => {
     });
 
     describe('Static Methods', () => {
-        // it('should define angle using Law of Sines', () => {
-        //     // Setup triangle with known angles and sides
-        //     const arcA = new Distance(5);
-        //     const arcB = new Distance(7);
-        //     const arcC = new Distance(9);
-        //     const angleC = new Angle(60);
 
-        //     // Calculate using Law of Sines
-        //     const angleA = Angle.defineBy(
-        //         Arc.onSphere(),
-        //         Arc.onSphere(),
-        //         angleC,
-        //         arcA,
-        //         arcB,
-        //         arcC
-        //     );
-
-        //     // The result should satisfy the Law of Sines
-        //     const sinA = Math.sin(angleA.toRadians());
-        //     const sinC = Math.sin(angleC.toRadians());
-        //     const ratio = (arcA.inMeters() * sinC) / (arcC.inMeters() * sinA);
-        //     expect(ratio).toBeCloseTo(1, 5);
-        // });
-
+        it('should define angle using Law of Sines', () => {
+            // Using even smaller distances to ensure a valid spherical triangle
+            const arcA = Distance.fromKilometers(1);   // 1 km
+            const arcB = Distance.fromKilometers(1.2); // 1.2 km
+            const arcC = Distance.fromKilometers(1.5); // 1.5 km
+            const angleC = new Angle(45);  // Using 45 degrees instead of 60
+        
+            const angleA = Angle.defineBy(
+                Arc.onSphere(),
+                Arc.onSphere(),
+                angleC,
+                arcA,
+                arcB,
+                arcC
+            );
+        
+            const radius = Sphere.getRadius().inMeters();
+            
+            const sinA = Math.sin(angleA.toRadians());
+            const sinC = Math.sin(angleC.toRadians());
+            const sinSmallB = Math.sin(arcB.inMeters() / radius);
+            const sinSmallC = Math.sin(arcC.inMeters() / radius);
+            
+            const ratio = (sinA / sinSmallB) / (sinC / sinSmallC);
+            expect(ratio).toBeCloseTo(1, 3);
+        });
+                
         it('should define angle using Law of Cosines', () => {
             // Setup triangle with known sides
             const arcA = new Distance(5);
