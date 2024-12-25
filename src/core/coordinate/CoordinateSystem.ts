@@ -5,7 +5,7 @@ export class CoordinateSystem {
   static fromCoordinate(coord: Coordinate): Point {
       const lat = coord.latitude * (Math.PI / 180);
       const lon = coord.longitude * (Math.PI / 180);
-      return Point.at(lat, lon);
+      return Point.at(lon, lat);
   }
 
   static fromPoint(point: Point): Coordinate {

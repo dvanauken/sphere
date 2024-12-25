@@ -33,15 +33,17 @@ export class Arc {
             const startPoint = CoordinateSystem.fromCoordinate(this.start);
             const endPoint = CoordinateSystem.fromCoordinate(this.end);
 
-            // Calculate central angle using haversine formula
-            const dLat = endPoint.Y - startPoint.Y;
-            const dLon = endPoint.X - startPoint.X;
+            const lat1 = startPoint.Y;
+            const lon1 = startPoint.X;
+            const lat2 = endPoint.Y;
+            const lon2 = endPoint.X;
 
-            const a =
-                Math.sin(dLat / 2) ** 2 +
-                Math.cos(startPoint.Y) * Math.cos(endPoint.Y) * Math.sin(dLon / 2) ** 2;
-
-            const centralAngle = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            // Haversine formula for great circle distance
+            const havLat = Math.sin((lat2 - lat1)/2) ** 2;
+            const havLon = Math.cos(lat1) * Math.cos(lat2) * Math.sin((lon2 - lon1)/2) ** 2;
+            
+            const a = havLat + havLon;
+            const centralAngle = 2 * Math.asin(Math.sqrt(a));
 
             return new Distance(this.sphereRadius.inMeters() * centralAngle);
         } else if (this.centralAngle) {
@@ -60,23 +62,33 @@ export class Arc {
             const startPoint = CoordinateSystem.fromCoordinate(this.start);
             const endPoint = CoordinateSystem.fromCoordinate(this.end);
 
-            const d = this.length().inMeters() / this.sphereRadius.inMeters();
+            const lat1 = startPoint.Y;
+            const lon1 = startPoint.X;
+            const lat2 = endPoint.Y;
+            const lon2 = endPoint.X;
 
-            const A = Math.sin((1 - fraction) * d) / Math.sin(d);
-            const B = Math.sin(fraction * d) / Math.sin(d);
+            // Calculate central angle using haversine formula
+            const havLat = Math.sin((lat2 - lat1)/2) ** 2;
+            const havLon = Math.cos(lat1) * Math.cos(lat2) * Math.sin((lon2 - lon1)/2) ** 2;
+            const centralAngle = 2 * Math.asin(Math.sqrt(havLat + havLon));
 
-            const x =
-                A * Math.cos(startPoint.Y) * Math.cos(startPoint.X) +
-                B * Math.cos(endPoint.Y) * Math.cos(endPoint.X);
-            const y =
-                A * Math.cos(startPoint.Y) * Math.sin(startPoint.X) +
-                B * Math.cos(endPoint.Y) * Math.sin(endPoint.X);
-            const z = A * Math.sin(startPoint.Y) + B * Math.sin(endPoint.Y);
+            if (Math.abs(centralAngle) < 1e-10) {
+                return this.start; // Points are effectively identical
+            }
 
-            const lat3 = Math.atan2(z, Math.sqrt(x * x + y * y));
-            const lon3 = Math.atan2(y, x);
+            const A = Math.sin((1 - fraction) * centralAngle) / Math.sin(centralAngle);
+            const B = Math.sin(fraction * centralAngle) / Math.sin(centralAngle);
 
-            return CoordinateSystem.fromPoint(Point.at(lon3, lat3));
+            // Calculate 3D cartesian coordinates
+            const x = A * Math.cos(lat1) * Math.cos(lon1) + B * Math.cos(lat2) * Math.cos(lon2);
+            const y = A * Math.cos(lat1) * Math.sin(lon1) + B * Math.cos(lat2) * Math.sin(lon2);
+            const z = A * Math.sin(lat1) + B * Math.sin(lat2);
+
+            // Convert back to spherical coordinates
+            const lat = Math.atan2(z, Math.sqrt(x * x + y * y));
+            const lon = Math.atan2(y, x);
+
+            return CoordinateSystem.fromPoint(Point.at(lon, lat));
         }
         return undefined;
     }

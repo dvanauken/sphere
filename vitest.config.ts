@@ -5,6 +5,12 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['test/**/*.test.ts'],
+    exclude: [                       
+      'test/**/*.js',
+      'test/**/*.d.ts',
+      'test/**/*.js.map',
+      'dist/**/*'
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
