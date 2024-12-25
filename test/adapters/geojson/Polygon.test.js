@@ -1,2 +1,0 @@
-export {};
-// Polygon test file 

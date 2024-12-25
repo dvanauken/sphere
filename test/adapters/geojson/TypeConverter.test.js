@@ -1,2 +1,0 @@
-export {};
-// TypeConverter test file 

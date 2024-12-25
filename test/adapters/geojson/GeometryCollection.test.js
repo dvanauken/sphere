@@ -1,2 +1,0 @@
-export {};
-// GeometryCollection test file 

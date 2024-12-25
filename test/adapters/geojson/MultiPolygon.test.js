@@ -1,2 +1,0 @@
-export {};
-// MultiPolygon test file 

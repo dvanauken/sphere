@@ -16,6 +16,7 @@ import { CoordinateSystem } from '../../../src/core/coordinate/CoordinateSystem.
 import { Point } from '../../../src/core/models/Point.js';
 import { Coordinate } from '../../../src/core/models/Coordinate.js';
 
+
 describe('CoordinateSystem', () => {
     describe('Coordinate to Point Conversion', () => {
         it('should convert equator point', () => {

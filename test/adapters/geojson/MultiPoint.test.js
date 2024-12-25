@@ -1,2 +1,0 @@
-export {};
-// MultiPoint test file 

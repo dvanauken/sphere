@@ -13,7 +13,8 @@
     }
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && find test -name \"*.js\" -type f -delete && find test -name \"*.js.map\" -type f -delete && find test -name \"*.d.ts\" -type f -delete",
+    "clean:test": "find test -name \"*.js\" -type f -delete && find test -name \"*.js.map\" -type f -delete && find test -name \"*.d.ts\" -type f -delete",
     "prebuild": "npm run clean && git add . && (git commit -m \"Pre-release commit\" || exit 0)",
     "build": "tsc",
     "start": "node dist/src/index.js",

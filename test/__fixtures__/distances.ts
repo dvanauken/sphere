@@ -1,5 +1,6 @@
 // Pre-calculated distances 
-import { Distance } from "../../src/index.js";
+//import { Distance } from "../../src/index.js";
+import { Distance } from '../../src/core/models/Distance.js';
 
 // Common Distances
 export const ONE_KILOMETER = Distance.fromKilometers(1);
