@@ -19,6 +19,6 @@
     // If you have importHelpers=true, remember to install 'tslib' 
     "importHelpers": true
   },
-  "include": ["src", "test"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "test"]
 }
