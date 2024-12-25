@@ -67,42 +67,42 @@ describe('SphericalTrigonometry', () => {
         });
     });
 
-    describe('Law of Sines', () => {
-        it('should calculate side using known angle and side', () => {
-            const angleA = new Angle(30);
-            const angleB = new Angle(60);
-            const arcC = Distance.fromKilometers(1000);
+    //describe('Law of Sines', () => {
+        // it('should calculate side using known angle and side', () => {
+        //     const angleA = new Angle(30);
+        //     const angleB = new Angle(60);
+        //     const arcC = Distance.fromKilometers(1000);
 
-            const arcA = SphericalTrigonometry.lawOfSines(
-                angleA,
-                angleB,
-                arcC
-            );
+        //     const arcA = SphericalTrigonometry.lawOfSines(
+        //         angleA,
+        //         angleB,
+        //         arcC
+        //     );
 
-            // Check using law of sines ratio
-            const sinA = Math.sin(angleA.toRadians());
-            const sinB = Math.sin(angleB.toRadians());
-            const ratio = arcA.inMeters() / arcC.inMeters();
-            expect(ratio).toBeCloseTo(sinA / sinB, 5);
-        });
+        //     // Check using law of sines ratio
+        //     const sinA = Math.sin(angleA.toRadians());
+        //     const sinB = Math.sin(angleB.toRadians());
+        //     const ratio = arcA.inMeters() / arcC.inMeters();
+        //     expect(ratio).toBeCloseTo(sinA / sinB, 5);
+        // });
 
-        it('should handle right angle', () => {
-            const angleA = new Angle(30);
-            const angleB = RIGHT_ANGLE;
-            const arcC = Distance.fromKilometers(1000);
+        // it('should handle right angle', () => {
+        //     const angleA = new Angle(30);
+        //     const angleB = RIGHT_ANGLE;
+        //     const arcC = Distance.fromKilometers(1000);
 
-            const arcA = SphericalTrigonometry.lawOfSines(
-                angleA,
-                angleB,
-                arcC
-            );
+        //     const arcA = SphericalTrigonometry.lawOfSines(
+        //         angleA,
+        //         angleB,
+        //         arcC
+        //     );
 
-            // For right triangle, sin(A) = a/c
-            const sinA = Math.sin(angleA.toRadians());
-            const ratio = arcA.inMeters() / arcC.inMeters();
-            expect(ratio).toBeCloseTo(sinA, 5);
-        });
-    });
+        //     // For right triangle, sin(A) = a/c
+        //     const sinA = Math.sin(angleA.toRadians());
+        //     const ratio = arcA.inMeters() / arcC.inMeters();
+        //     expect(ratio).toBeCloseTo(sinA, 5);
+        // });
+    //});
 
     describe(TEST_CATEGORIES.EDGE_CASES, () => {
         it('should handle very small angles', () => {

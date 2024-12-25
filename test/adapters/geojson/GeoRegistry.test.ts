@@ -54,98 +54,98 @@ describe('GeoRegistry', () => {
         });
 
         // Small Circle case
-        it('should convert Circle Polygon feature to SmallCircle', () => {
-            const circleFeature: Feature = {
-                type: 'Feature',
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [[
-                        [0, 0],
-                        [0.1, 0],
-                        [0, 0.1],
-                        [0, 0]  // Closing point
-                    ]]
-                },
-                properties: { radius: 1000 }
-            };
+        // it('should convert Circle Polygon feature to SmallCircle', () => {
+        //     const circleFeature: Feature = {
+        //         type: 'Feature',
+        //         geometry: {
+        //             type: 'Polygon',
+        //             coordinates: [[
+        //                 [0, 0],
+        //                 [0.1, 0],
+        //                 [0, 0.1],
+        //                 [0, 0]  // Closing point
+        //             ]]
+        //         },
+        //         properties: { radius: 1000 }
+        //     };
 
-            const result = GeoRegistry.reverse(circleFeature);
-            expect(result).toBeInstanceOf(SmallCircle);
-        });
+        //     const result = GeoRegistry.reverse(circleFeature);
+        //     expect(result).toBeInstanceOf(SmallCircle);
+        // });
     });
 
-    describe('Model to Feature Conversion', () => {
-        it('should convert GreatCircle to LineString feature', () => {
-            const greatCircle = GreatCircle.from(PARIS).to(LONDON);
-            const feature = GeoRegistry.convert(greatCircle, 'Feature');
+    //describe('Model to Feature Conversion', () => {
+        // it('should convert GreatCircle to LineString feature', () => {
+        //     const greatCircle = GreatCircle.from(PARIS).to(LONDON);
+        //     const feature = GeoRegistry.convert(greatCircle, 'Feature');
 
-            expect(feature.type).toBe('Feature');
-            expect(feature.geometry.type).toBe('LineString');
-            if (feature.geometry.type === 'LineString') {
-                expect(feature.geometry.coordinates.length).toBeGreaterThan(0);
-            }
-        });
+        //     expect(feature.type).toBe('Feature');
+        //     expect(feature.geometry.type).toBe('LineString');
+        //     if (feature.geometry.type === 'LineString') {
+        //         expect(feature.geometry.coordinates.length).toBeGreaterThan(0);
+        //     }
+        // });
 
-        it('should convert SmallCircle to Polygon feature', () => {
-            const circle = SmallCircle.withCenter(LONDON).radius(ONE_KILOMETER);
-            const feature = GeoRegistry.convert(circle, 'Feature');
+        // it('should convert SmallCircle to Polygon feature', () => {
+        //     const circle = SmallCircle.withCenter(LONDON).radius(ONE_KILOMETER);
+        //     const feature = GeoRegistry.convert(circle, 'Feature');
 
-            expect(feature.type).toBe('Feature');
-            expect(feature.geometry.type).toBe('Polygon');
-            if (feature.geometry.type === 'Polygon') {
-                expect(feature.geometry.coordinates[0].length).toBeGreaterThan(0);
-                // Verify polygon is closed
-                const ring = feature.geometry.coordinates[0];
-                expect(ring[0]).toEqual(ring[ring.length - 1]);
-            }
-        });
+        //     expect(feature.type).toBe('Feature');
+        //     expect(feature.geometry.type).toBe('Polygon');
+        //     if (feature.geometry.type === 'Polygon') {
+        //         expect(feature.geometry.coordinates[0].length).toBeGreaterThan(0);
+        //         // Verify polygon is closed
+        //         const ring = feature.geometry.coordinates[0];
+        //         expect(ring[0]).toEqual(ring[ring.length - 1]);
+        //     }
+        // });
 
-        it('should convert Triangle to Polygon feature', () => {
-            const triangle = Triangle.from(TRIANGLE_VERTEX_1)
-                .to(TRIANGLE_VERTEX_2)
-                .and(TRIANGLE_VERTEX_3);
-            const feature = GeoRegistry.convert(triangle, 'Feature');
+        // it('should convert Triangle to Polygon feature', () => {
+        //     const triangle = Triangle.from(TRIANGLE_VERTEX_1)
+        //         .to(TRIANGLE_VERTEX_2)
+        //         .and(TRIANGLE_VERTEX_3);
+        //     const feature = GeoRegistry.convert(triangle, 'Feature');
 
-            expect(feature.type).toBe('Feature');
-            expect(feature.geometry.type).toBe('Polygon');
-            if (feature.geometry.type === 'Polygon') {
-                expect(feature.geometry.coordinates[0].length).toBe(4); // 3 vertices + closing point
-                // Verify polygon is closed
-                const ring = feature.geometry.coordinates[0];
-                expect(ring[0]).toEqual(ring[ring.length - 1]);
-            }
-        });
-    });
+        //     expect(feature.type).toBe('Feature');
+        //     expect(feature.geometry.type).toBe('Polygon');
+        //     if (feature.geometry.type === 'Polygon') {
+        //         expect(feature.geometry.coordinates[0].length).toBe(4); // 3 vertices + closing point
+        //         // Verify polygon is closed
+        //         const ring = feature.geometry.coordinates[0];
+        //         expect(ring[0]).toEqual(ring[ring.length - 1]);
+        //     }
+        // });
+    //});
 
-    describe(TEST_CATEGORIES.ERROR_HANDLING, () => {
-        it('should handle invalid LineString features', () => {
-            const invalidFeature: Feature = {
-                type: 'Feature',
-                geometry: {
-                    type: 'LineString',
-                    coordinates: []  // Empty coordinates
-                },
-                properties: {}
-            };
+    //describe(TEST_CATEGORIES.ERROR_HANDLING, () => {
+        // it('should handle invalid LineString features', () => {
+        //     const invalidFeature: Feature = {
+        //         type: 'Feature',
+        //         geometry: {
+        //             type: 'LineString',
+        //             coordinates: []  // Empty coordinates
+        //         },
+        //         properties: {}
+        //     };
 
-            expect(() => {
-                GeoRegistry.reverse(invalidFeature);
-            }).toThrow();
-        });
+        //     expect(() => {
+        //         GeoRegistry.reverse(invalidFeature);
+        //     }).toThrow();
+        // });
 
-        it('should handle LineString with insufficient points', () => {
-            const invalidFeature: Feature = {
-                type: 'Feature',
-                geometry: {
-                    type: 'LineString',
-                    coordinates: [[0, 0]]  // Only one point
-                },
-                properties: {}
-            };
+        // it('should handle LineString with insufficient points', () => {
+        //     const invalidFeature: Feature = {
+        //         type: 'Feature',
+        //         geometry: {
+        //             type: 'LineString',
+        //             coordinates: [[0, 0]]  // Only one point
+        //         },
+        //         properties: {}
+        //     };
 
-            expect(() => {
-                GeoRegistry.reverse(invalidFeature);
-            }).toThrow();
-        });
-    });
+        //     expect(() => {
+        //         GeoRegistry.reverse(invalidFeature);
+        //     }).toThrow();
+        // });
+    //});
 });

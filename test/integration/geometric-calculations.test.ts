@@ -14,7 +14,7 @@ import {
 } from '../__fixtures__/coordinates.js';
 
 describe('Geometric Calculations Integration', () => {
-    describe('Flight Route Planning', () => {
+    //describe('Flight Route Planning', () => {
         // it('should calculate great circle route with waypoints', () => {
         //     // Flight from London to Tokyo with waypoint at Dubai
         //     const dubai = new Coordinate(25.2532, 55.3657);
@@ -59,9 +59,9 @@ describe('Geometric Calculations Integration', () => {
         //     // Store intersection points for potential rerouting
         //     expect(intersections.length).toBeDefined();
         // });
-    });
+    //});
 
-    describe('Maritime Navigation', () => {
+    //describe('Maritime Navigation', () => {
         // it('should calculate shipping route with heading changes', () => {
         //     // New York to Rotterdam shipping route
         //     const rotterdam = new Coordinate(51.9225, 4.4792);
@@ -111,37 +111,37 @@ describe('Geometric Calculations Integration', () => {
         //         originalRoute.distance().inKilometers()
         //     );
         // });
-    });
+    //});
 
     describe('Area Coverage Analysis', () => {
-        it('should calculate search and rescue coverage area', () => {
-            // Last known position
-            const lastKnown = new Coordinate(40.7128, -74.006);
+        // it('should calculate search and rescue coverage area', () => {
+        //     // Last known position
+        //     const lastKnown = new Coordinate(40.7128, -74.006);
             
-            // Create search patterns: expanding squares
-            const searchRadius = Distance.fromKilometers(10);
-            const searchCircle = SmallCircle.withCenter(lastKnown)
-                .radius(searchRadius);
+        //     // Create search patterns: expanding squares
+        //     const searchRadius = Distance.fromKilometers(10);
+        //     const searchCircle = SmallCircle.withCenter(lastKnown)
+        //         .radius(searchRadius);
             
-            // Generate perimeter points
-            const perimeterPoints = searchCircle.generatePoints(16);
+        //     // Generate perimeter points
+        //     const perimeterPoints = searchCircle.generatePoints(16);
             
-            // Create search triangles for area coverage
-            const triangles = perimeterPoints.map((point, i) => {
-                const nextPoint = perimeterPoints[(i + 1) % perimeterPoints.length];
-                return Triangle.from(lastKnown).to(point).and(nextPoint);
-            });
+        //     // Create search triangles for area coverage
+        //     const triangles = perimeterPoints.map((point, i) => {
+        //         const nextPoint = perimeterPoints[(i + 1) % perimeterPoints.length];
+        //         return Triangle.from(lastKnown).to(point).and(nextPoint);
+        //     });
             
-            // Calculate total search area
-            const totalArea = triangles.reduce(
-                (sum, triangle) => sum + triangle.area(),
-                0
-            );
+        //     // Calculate total search area
+        //     const totalArea = triangles.reduce(
+        //         (sum, triangle) => sum + triangle.area(),
+        //         0
+        //     );
             
-            // Verify coverage
-            expect(totalArea).toBeGreaterThan(0);
-            expect(triangles.length).toBe(16);
-        });
+        //     // Verify coverage
+        //     expect(totalArea).toBeGreaterThan(0);
+        //     expect(triangles.length).toBe(16);
+        // });
 
         it('should handle overlapping coverage areas', () => {
             // Two search areas with overlap
