@@ -1,7 +1,7 @@
 // GeoError test file 
 import { describe, it, expect } from 'vitest';
-import { GeoError } from '../../../src/core/errors/GeoError';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { GeoError } from '../../../src/index.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 
 // Create a concrete implementation of GeoError for testing
 class TestGeoError extends GeoError {

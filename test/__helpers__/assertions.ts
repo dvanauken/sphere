@@ -1,8 +1,6 @@
 // Custom assertions 
-import { expect } from 'vitest';
-import { Coordinate } from '../../src/core/models/Coordinate';
-import { Distance } from '../../src/core/models/Distance';
-import { Angle } from '../../src/core/models/Angle';
+import { expect } from "vitest";
+import { Distance, Angle, Coordinate } from "../../src/index.js";
 
 // Distance assertions
 export function assertDistanceNearlyEqual(

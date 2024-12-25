@@ -1,8 +1,7 @@
 // GeoConversionError test file 
 import { describe, it, expect } from 'vitest';
-import { GeoConversionError } from '../../../src/core/errors/GeoConversionError';
-import { GeoError } from '../../../src/core/errors/GeoError';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { GeoConversionError, GeoError } from '../../../src/index.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 
 describe('GeoConversionError', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

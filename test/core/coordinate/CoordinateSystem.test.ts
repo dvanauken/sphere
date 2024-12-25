@@ -1,12 +1,7 @@
 // CoordinateSystem test file 
-import { describe, it, expect } from 'vitest';
-import { CoordinateSystem } from '../../../src/core/coordinate/CoordinateSystem';
-import { Coordinate } from '../../../src/core/models/Coordinate';
-import { Point } from '../../../src/core/models/Point';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
 import { 
     assertCoordinateNearlyEqual 
-} from '../../__helpers__/assertions';
+} from '../../__helpers__/assertions.js';
 import {
     LONDON,
     PARIS,
@@ -14,7 +9,10 @@ import {
     SOUTH_POLE,
     EQUATOR_PRIME,
     EQUATOR_180
-} from '../../__fixtures__/coordinates';
+} from '../../__fixtures__/coordinates.js';
+import { describe, it, expect } from 'vitest';
+import { CoordinateSystem, Point, Coordinate } from '../../../src/index.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 
 describe('CoordinateSystem', () => {
     describe('Coordinate to Point Conversion', () => {

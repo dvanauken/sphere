@@ -1,5 +1,6 @@
 // Common angles 
-import { Angle } from '../../src/core/models/Angle';
+
+import { Angle } from "../../src/core/models/Angle.js";
 
 // Common Angles
 export const ZERO = new Angle(0);

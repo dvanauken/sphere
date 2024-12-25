@@ -1,5 +1,5 @@
-import { Coordinate } from "../models/Coordinate";
-import { Point } from "../models/Point";
+import { Coordinate } from "../models/Coordinate.js";
+import { Point } from "../models/Point.js";
 
 export class CoordinateSystem {
   static fromCoordinate(coord: Coordinate): Point {

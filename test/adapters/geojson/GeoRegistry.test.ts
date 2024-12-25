@@ -1,20 +1,18 @@
 import { describe, it, expect } from 'vitest';
-import { GeoRegistry } from '../../../src/adapters/geojson/GeoRegistry';
-import { Feature } from '../../../src/adapters/geojson/Feature';
-import { Coordinate } from '../../../src/core/models/Coordinate';
-import { GreatCircle } from '../../../src/core/models/GreatCircle';
-import { SmallCircle } from '../../../src/core/models/SmallCircle';
-import { Triangle } from '../../../src/core/models/Triangle';
-import { Distance } from '../../../src/core/models/Distance';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { GeoRegistry } from '../../../src/adapters/geojson/GeoRegistry.js';
+import { Feature } from '../../../src/adapters/geojson/Feature.js';
+import { GreatCircle } from '../../../src/core/models/GreatCircle.js';
+import { SmallCircle } from '../../../src/core/models/SmallCircle.js';
+import { Triangle } from '../../../src/core/models/Triangle.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 import {
     LONDON,
     PARIS,
     TRIANGLE_VERTEX_1,
     TRIANGLE_VERTEX_2,
     TRIANGLE_VERTEX_3
-} from '../../__fixtures__/coordinates';
-import { ONE_KILOMETER } from '../../__fixtures__/distances';
+} from '../../__fixtures__/coordinates.js';
+import { ONE_KILOMETER } from '../../__fixtures__/distances.js';
 
 describe('GeoRegistry', () => {
     describe('Feature to Model Conversion', () => {

@@ -1,4 +1,4 @@
-import { GeoError } from './GeoError';
+import { GeoError } from "./GeoError.js";
 
 export class GeoValidationError extends GeoError {
     constructor(

@@ -1,3 +1,3 @@
-export * from './GeoError';
-export * from './GeoConversionError';
-export * from './GeoValidationError';
+export * from './GeoError.js';
+export * from './GeoConversionError.js';
+export * from './GeoValidationError.js';

@@ -1,8 +1,7 @@
 // GeoValidationError test file 
 import { describe, it, expect } from 'vitest';
-import { GeoValidationError } from '../../../src/core/errors/GeoValidationError';
-import { GeoError } from '../../../src/core/errors/GeoError';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { GeoValidationError, GeoError } from '../../../src/index.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 
 describe('GeoValidationError', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {

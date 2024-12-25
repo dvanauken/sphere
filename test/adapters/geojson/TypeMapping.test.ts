@@ -1,12 +1,7 @@
 // TypeMapping test file 
 import { describe, it, expect } from 'vitest';
-import { TypeMapping } from '../../../src/adapters/geojson/TypeMapping';
-import { Coordinate } from '../../../src/core/models/Coordinate';
-import { Point } from '../../../src/core/models/Point';
-import { GreatCircle } from '../../../src/core/models/GreatCircle';
-import { SmallCircle } from '../../../src/core/models/SmallCircle';
-import { Triangle } from '../../../src/core/models/Triangle';
-import { TEST_CATEGORIES } from '../../__helpers__/constants';
+import { TypeMapping, Coordinate, Point, GreatCircle, SmallCircle, Triangle } from '../../../src/index.js';
+import { TEST_CATEGORIES } from '../../__helpers__/constants.js';
 
 describe('TypeMapping', () => {
     describe(TEST_CATEGORIES.CONSTRUCTOR, () => {
