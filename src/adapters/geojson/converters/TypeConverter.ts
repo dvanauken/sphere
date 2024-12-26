@@ -1,26 +1,22 @@
-import { 
-    GeoJsonFeature,
-    GeoJsonPoint,
-    GeoJsonLineString,
-    GeoJsonPolygon
-} from "../types/index.js";
 import { TypeMapping } from "./TypeMapping.js";
 import { GeoConversionError } from "../errors/GeoConversionError.js";
-import { 
-    Coordinate, 
-    GreatCircle, 
-    SmallCircle, 
-    Triangle, 
-    Distance, 
-    Angle,
-    Azimuth,
-    Arc 
-} from "../../../index.js";
+import { GeoJsonFeature } from "../types/GeoJsonFeature.js";
+import { GeoJsonLineString } from "../types/GeoJsonLineString.js";
+import { GeoJsonPoint } from "../types/GeoJsonPoint.js";
+import { GeoJsonPolygon } from "../types/GeoJsonPolygon.js";
+import { Angle } from "../../../core/models/Angle.js";
+import { Arc } from "../../../core/models/Arc.js";
+import { Azimuth } from "../../../core/models/Azimuth.js";
+import { Coordinate } from "../../../core/models/Coordinate.js";
+import { Distance } from "../../../core/models/Distance.js";
+import { GreatCircle } from "../../../core/models/GreatCircle.js";
+import { SmallCircle } from "../../../core/models/SmallCircle.js";
+import { Triangle } from "../../../core/models/Triangle.js";
 
 export class TypeConverter {
     static toFeature(source: any): GeoJsonFeature {
-        const type = TypeMapping.get(source.constructor);
-        if (!type) {
+        const geoType  = TypeMapping.getGeoType(source.constructor);
+        if (!geoType ) {
             throw new GeoConversionError(
                 `No mapping for type ${source.constructor.name}`,
                 source.constructor.name,
@@ -29,7 +25,7 @@ export class TypeConverter {
         }
 
         try {
-            switch(type.type) {
+            switch(geoType ) {
                 case "Point":
                     if (source instanceof Coordinate) {
                         return {
@@ -117,7 +113,7 @@ export class TypeConverter {
             }
             
             throw new GeoConversionError(
-                `Conversion not implemented for ${type.type}`,
+                `Conversion not implemented for ${geoType }`,
                 source.constructor.name,
                 'GeoJsonFeature'
             );

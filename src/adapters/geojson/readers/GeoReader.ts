@@ -1,17 +1,13 @@
-import { 
-  GeoJsonFeature,
-  GeoJsonPoint,
-  GeoJsonLineString,
-  GeoJsonPolygon
-} from "../types/index.js";
 import { GeoRegistry } from "./GeoRegistry.js";
 import { GeoConversionError } from "../errors/GeoConversionError.js";
-import { 
-  Coordinate, 
-  GreatCircle, 
-  SmallCircle, 
-  Triangle 
-} from "../../../index.js";
+import { GeoJsonFeature } from "../types/GeoJsonFeature.js";
+import { GeoJsonLineString } from "../types/GeoJsonLineString.js";
+import { GeoJsonPoint } from "../types/GeoJsonPoint.js";
+import { GeoJsonPolygon } from "../types/GeoJsonPolygon.js";
+import { Coordinate } from "../../../core/models/Coordinate.js";
+import { GreatCircle } from "../../../core/models/GreatCircle.js";
+import { SmallCircle } from "../../../core/models/SmallCircle.js";
+import { Triangle } from "../../../core/models/Triangle.js";
 
 export class GeoReader {
   /**

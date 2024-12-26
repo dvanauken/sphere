@@ -1,4 +1,4 @@
-// Export all GeoJSON types
+// src/adapters/geojson/types/index.ts
 export * from './GeoJsonPoint.js';
 export * from './GeoJsonLineString.js';
 export * from './GeoJsonPolygon.js';

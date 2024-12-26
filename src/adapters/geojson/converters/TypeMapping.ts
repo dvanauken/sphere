@@ -1,57 +1,126 @@
-import { Coordinate } from "../../core/models/Coordinate.js";
-import { GreatCircle } from "../../core/models/GreatCircle.js";
-import { Point } from "../../core/models/Point.js";
-import { SmallCircle } from "../../core/models/SmallCircle.js";
-import { Triangle } from "../../core/models/Triangle.js";
+import { Arc } from "../../../core/models/Arc.js";
+import { Point } from "../../../core/models/Point.js";
+import { Polygon } from "../../../core/models/Polygon.js";
 
 export interface GeoType {
     type: string;
-    coordinates: any;
+    coordinates: number[] | number[][] | number[][][] | number[][][][];
 }
 
+type InternalType = typeof Point | typeof Arc | typeof Polygon | typeof Array;
+type GeoJSONType = "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon";
+
 export class TypeMapping {
-    private static readonly map = new Map<any, GeoType>([
-        [Coordinate, { type: "Point", coordinates: [] }],
-        [Point, { type: "Point", coordinates: [] }],
-        [GreatCircle, { type: "LineString", coordinates: [] }],
-        [SmallCircle, { type: "Polygon", coordinates: [] }],
-        [Triangle, { type: "Polygon", coordinates: [] }]
+    private static readonly internalToGeoMap = new Map<InternalType, GeoJSONType>([
+        [Point, "Point"],
+        [Array, "MultiPoint"],
+        [Arc, "LineString"],
+        [Array, "MultiLineString"],
+        [Polygon, "Polygon"],
+        [Array, "MultiPolygon"]
     ]);
 
-    static get(type: any): GeoType | null {
-        const mapping = TypeMapping.map.get(type);
-        if (!mapping) {
-            return null;
+    private static readonly geoToInternalMap = new Map<GeoJSONType, InternalType>([
+        ["Point", Point],
+        ["MultiPoint", Array],
+        ["LineString", Arc],
+        ["MultiLineString", Array],
+        ["Polygon", Polygon],
+        ["MultiPolygon", Array]
+    ]);
+
+    static getGeoType(internalType: any): GeoJSONType | undefined {
+        if (Array.isArray(internalType)) {
+            const firstElement = internalType[0];
+            if (firstElement instanceof Point) return "MultiPoint";
+            if (firstElement instanceof Arc) return "MultiLineString";
+            if (firstElement instanceof Polygon) return "MultiPolygon";
+            return undefined;
         }
-        return { ...mapping }; // Return a copy to prevent modification
+        return TypeMapping.internalToGeoMap.get(internalType.constructor);
     }
 
-    static set(sourceType: any, geoType: GeoType): void {
-        TypeMapping.map.set(sourceType, { ...geoType }); // Store a copy
+    static getInternalType(geoType: GeoJSONType): InternalType | undefined {
+        return TypeMapping.geoToInternalMap.get(geoType);
     }
 
-    static hasMapping(type: any): boolean {
-        return TypeMapping.map.has(type);
-    }
-
-    static getAllMappings(): Map<any, GeoType> {
-        return new Map(TypeMapping.map); // Return a copy
-    }
-
-    static getSourceTypeForGeoType(geoType: string): any[] {
-        const results: any[] = [];
-        TypeMapping.map.forEach((value, key) => {
-            if (value.type === geoType) {
-                results.push(key);
-            }
-        });
-        return results;
-    }
-
-    static registerMapping(sourceType: any, geoType: GeoType): void {
-        if (!geoType.type || !["Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon"].includes(geoType.type)) {
-            throw new Error(`Invalid GeoJSON type: ${geoType.type}`);
+    static hasInternalMapping(type: any): boolean {
+        if (Array.isArray(type)) {
+            const firstElement = type[0];
+            return firstElement instanceof Point || 
+                   firstElement instanceof Arc || 
+                   firstElement instanceof Polygon;
         }
-        TypeMapping.set(sourceType, geoType);
+        return TypeMapping.internalToGeoMap.has(type.constructor);
+    }
+
+    static hasGeoMapping(type: GeoJSONType): boolean {
+        return TypeMapping.geoToInternalMap.has(type);
+    }
+
+    static getAllMappings(): Map<InternalType, GeoJSONType> {
+        return new Map(TypeMapping.internalToGeoMap);
+    }
+
+    static getAllGeoTypes(): GeoJSONType[] {
+        return Array.from(TypeMapping.geoToInternalMap.keys());
+    }
+
+    static getAllSourceTypes(): InternalType[] {
+        return Array.from(TypeMapping.internalToGeoMap.keys());
+    }
+
+    static getSourceTypeForGeoType(geoType: GeoJSONType): InternalType[] {
+        const sourceType = TypeMapping.geoToInternalMap.get(geoType);
+        return sourceType ? [sourceType] : [];
+    }
+
+    static registerMapping(internalType: InternalType, geoType: GeoJSONType): void {
+        const validTypes: GeoJSONType[] = [
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon"
+        ];
+
+        if (!validTypes.includes(geoType)) {
+            throw new Error(`Invalid GeoJSON type: ${geoType}. Must be one of: ${validTypes.join(', ')}`);
+        }
+
+        TypeMapping.internalToGeoMap.set(internalType, geoType);
+        TypeMapping.geoToInternalMap.set(geoType, internalType);
+    }
+
+    static validateCoordinates(type: GeoJSONType, coords: any): boolean {
+        switch (type) {
+            case "Point":
+                return Array.isArray(coords) && coords.length === 2 && 
+                       coords.every(c => typeof c === 'number');
+            
+            case "MultiPoint":
+            case "LineString":
+                return Array.isArray(coords) && coords.length > 0 &&
+                       coords.every(p => Array.isArray(p) && p.length === 2 && 
+                                      p.every(c => typeof c === 'number'));
+            
+            case "MultiLineString":
+            case "Polygon":
+                return Array.isArray(coords) && coords.length > 0 &&
+                       coords.every(line => Array.isArray(line) && line.length > 0 &&
+                                         line.every(p => Array.isArray(p) && p.length === 2 &&
+                                                      p.every(c => typeof c === 'number')));
+            
+            case "MultiPolygon":
+                return Array.isArray(coords) && coords.length > 0 &&
+                       coords.every(poly => Array.isArray(poly) && poly.length > 0 &&
+                                         poly.every(line => Array.isArray(line) && line.length > 0 &&
+                                                         line.every(p => Array.isArray(p) && p.length === 2 &&
+                                                                      p.every(c => typeof c === 'number'))));
+            
+            default:
+                return false;
+        }
     }
 }

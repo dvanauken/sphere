@@ -1,1 +1,2 @@
-// Writers index.ts 
+// src/adapters/geojson/writers/index.ts
+export * from './GeoWriter.js';

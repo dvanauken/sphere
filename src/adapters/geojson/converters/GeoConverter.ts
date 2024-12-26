@@ -1,16 +1,12 @@
-import { 
-    GeoJsonFeature, 
-    GeoJsonFeatureCollection 
-} from "../types/index.js";
-import { GeoReader } from "./GeoReader.js";
-import { GeoWriter } from "./GeoWriter.js";
 import { GeoConversionError } from "../errors/GeoConversionError.js";
-import { 
-    Coordinate, 
-    GreatCircle, 
-    SmallCircle, 
-    Triangle 
-} from "../../../index.js";
+import { GeoReader } from "../readers/GeoReader.js";
+import { GeoWriter } from "../writers/GeoWriter.js";
+import { GeoJsonFeature } from "../types/GeoJsonFeature.js";
+import { GeoJsonFeatureCollection } from "../types/GeoJsonFeatureCollection.js";
+import { Coordinate } from "../../../core/models/Coordinate.js";
+import { GreatCircle } from "../../../core/models/GreatCircle.js";
+import { SmallCircle } from "../../../core/models/SmallCircle.js";
+import { Triangle } from "../../../core/models/Triangle.js";
 
 /**
  * Converts between spherical geometry objects and GeoJSON
