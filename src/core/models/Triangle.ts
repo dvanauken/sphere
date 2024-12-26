@@ -1,93 +1,241 @@
 import { Coordinate } from './Coordinate.js';
-import { Point } from './Point.js';
-import { Sphere } from './Sphere.js';
 import { Distance } from './Distance.js';
 import { Angle } from './Angle.js';
-import { CoordinateSystem } from '../coordinate/CoordinateSystem.js';
+import { Sphere } from './Sphere.js';
 
 export class Triangle {
-    private readonly points: Point[];
-
-    public constructor(
-        private readonly triangleVertices: [Coordinate, Coordinate, Coordinate],
+    private constructor(
+        private readonly vertices: [Coordinate, Coordinate, Coordinate],
+        private readonly sides: [Distance, Distance, Distance],
+        private readonly angles: [Angle, Angle, Angle],
         private readonly sphereRadius: Distance = Sphere.getRadius()
     ) {
-        this.points = triangleVertices.map(v => CoordinateSystem.fromCoordinate(v));
+        this.validateTriangle();
     }
 
-    static from = (a: Coordinate) => ({
-        to: (b: Coordinate) => ({
-            and: (c: Coordinate) => new Triangle([a, b, c])
-        })
-    });
+    // Side-Angle-Side (SAS)
+    static fromSAS(
+        sideA: Distance,
+        angleC: Angle,
+        sideB: Distance,
+        sphereRadius: Distance = Sphere.getRadius()
+    ): Triangle {
+        if (angleC.degrees <= 0 || angleC.degrees >= 180) {
+            throw new Error("Included angle must be between 0° and 180°");
+        }
 
-    withSphere = (sphere: Sphere): Triangle =>
-        new Triangle(this.triangleVertices, Sphere.getRadius());
+        // Convert sides to radians (arc lengths)
+        const a = sideA.inMeters() / sphereRadius.inMeters();
+        const b = sideB.inMeters() / sphereRadius.inMeters();
+        const C = angleC.toRadians();
 
-    area = (): number => {
-        const angles = this.angles();
-        const sphericalExcess = angles.reduce((sum, angle) => sum + angle.degrees, 0) - 180;
-        return sphericalExcess * (Math.PI / 180) * Math.pow(this.sphereRadius.inMeters() / 1000, 2);
-    };
+        // Calculate third side using spherical law of cosines
+        const cosc = Math.cos(a) * Math.cos(b) + Math.sin(a) * Math.sin(b) * Math.cos(C);
+        const c = Math.acos(cosc);
 
-    perimeter = (): Distance => {
-        const sides = this.sides();
-        const totalMeters = sides.reduce((sum, side) => sum + side.inMeters(), 0);
-        return new Distance(totalMeters);
-    };
-
-    angles = (): [Angle, Angle, Angle] => {
-        return [0, 1, 2].map(i => {
-            const p1 = this.points[i];
-            const p2 = this.points[(i + 1) % 3];
-            const p3 = this.points[(i + 2) % 3];
-
-            const v1 = this.vectorBetween(p1, p2);
-            const v2 = this.vectorBetween(p1, p3);
-            const angle = this.angleBetweenVectors(v1, v2);
-
-            return new Angle(angle * (180 / Math.PI));
-        }) as [Angle, Angle, Angle];
-    };
-
-    sides = (): [Distance, Distance, Distance] => {
-        return [0, 1, 2].map(i => {
-            const start = this.points[i];
-            const end = this.points[(i + 1) % 3];
-            return this.sphericalDistance(start, end);
-        }) as [Distance, Distance, Distance];
-    };
-
-    private vectorBetween = (p1: Point, p2: Point): [number, number, number] => {
-        // Points are already in radians since we converted them in constructor
-        const x = Math.cos(p2.Y) * Math.cos(p2.X) - Math.cos(p1.Y) * Math.cos(p1.X);
-        const y = Math.cos(p2.Y) * Math.sin(p2.X) - Math.cos(p1.Y) * Math.sin(p1.X);
-        const z = Math.sin(p2.Y) - Math.sin(p1.Y);
-        return [x, y, z];
-    };
-
-    private angleBetweenVectors = (v1: [number, number, number], v2: [number, number, number]): number => {
-        const dot = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
-        const mag1 = Math.sqrt(v1[0] * v1[0] + v1[1] * v1[1] + v1[2] * v1[2]);
-        const mag2 = Math.sqrt(v2[0] * v2[0] + v2[1] * v2[1] + v2[2] * v2[2]);
-        return Math.acos(dot / (mag1 * mag2));
-    };
-
-    private sphericalDistance = (p1: Point, p2: Point): Distance => {
-        // Points are already in radians from CoordinateSystem conversion
-        const dLat = p2.Y - p1.Y;
-        const dLon = p2.X - p1.X;
-        const a = Math.sin(dLat/2) ** 2 +
-                Math.cos(p1.Y) * Math.cos(p2.Y) *
-                Math.sin(dLon/2) ** 2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return new Distance(this.sphereRadius.inMeters() * c);
-    };
-
-    get vertices(): [Coordinate, Coordinate, Coordinate] {
-        return this.triangleVertices;
+        // Calculate remaining angles using spherical law of sines
+        const sinA = Math.sin(C) * Math.sin(b) / Math.sin(c);
+        const sinB = Math.sin(C) * Math.sin(a) / Math.sin(c);
+        
+        const A = new Angle(Math.asin(sinA) * (180 / Math.PI));
+        const B = new Angle(Math.asin(sinB) * (180 / Math.PI));
+        
+        // Calculate vertices
+        const vertices = Triangle.calculateVertices(a, b, c, A, B, angleC);
+        
+        return new Triangle(
+            vertices,
+            [sideA, sideB, new Distance(c * sphereRadius.inMeters())],
+            [A, B, angleC],
+            sphereRadius
+        );
     }
 
-    toString = (): string =>
-        `Triangle(${this.triangleVertices.map(v => v.toString()).join(' → ')})`;
+    // Side-Side-Side (SSS)
+    static fromSSS(
+        sideA: Distance,
+        sideB: Distance,
+        sideC: Distance,
+        sphereRadius: Distance = Sphere.getRadius()
+    ): Triangle {
+        // Convert sides to radians
+        const a = sideA.inMeters() / sphereRadius.inMeters();
+        const b = sideB.inMeters() / sphereRadius.inMeters();
+        const c = sideC.inMeters() / sphereRadius.inMeters();
+
+        // Validate triangle inequality on sphere
+        if (a + b <= c || b + c <= a || c + a <= b) {
+            throw new Error("Triangle sides must satisfy spherical triangle inequality");
+        }
+
+        // Calculate angles using spherical law of cosines
+        const cosA = (Math.cos(a) - Math.cos(b) * Math.cos(c)) / (Math.sin(b) * Math.sin(c));
+        const cosB = (Math.cos(b) - Math.cos(c) * Math.cos(a)) / (Math.sin(c) * Math.sin(a));
+        const cosC = (Math.cos(c) - Math.cos(a) * Math.cos(b)) / (Math.sin(a) * Math.sin(b));
+
+        const angles: [Angle, Angle, Angle] = [
+            new Angle(Math.acos(cosA) * (180 / Math.PI)),
+            new Angle(Math.acos(cosB) * (180 / Math.PI)),
+            new Angle(Math.acos(cosC) * (180 / Math.PI))
+        ];
+
+        // Calculate vertices
+        const vertices = Triangle.calculateVertices(a, b, c, angles[0], angles[1], angles[2]);
+
+        return new Triangle(
+            vertices,
+            [sideA, sideB, sideC],
+            angles,
+            sphereRadius
+        );
+    }
+
+    // Angle-Angle-Side (AAS)
+    static fromAAS(
+        angleA: Angle,
+        angleB: Angle,
+        sideC: Distance,
+        sphereRadius: Distance = Sphere.getRadius()
+    ): Triangle {
+        // Calculate third angle
+        const C = new Angle(180 - (angleA.degrees + angleB.degrees));
+        if (C.degrees <= 0) {
+            throw new Error("Sum of angles must be less than 180°");
+        }
+
+        // Convert side to radians
+        const c = sideC.inMeters() / sphereRadius.inMeters();
+
+        // Calculate remaining sides using law of sines
+        const sinA = Math.sin(angleA.toRadians());
+        const sinB = Math.sin(angleB.toRadians());
+        const sinC = Math.sin(C.toRadians());
+
+        const a = Math.asin(Math.sin(c) * sinA / sinC);
+        const b = Math.asin(Math.sin(c) * sinB / sinC);
+
+        // Calculate vertices
+        const vertices = Triangle.calculateVertices(a, b, c, angleA, angleB, C);
+
+        return new Triangle(
+            vertices,
+            [new Distance(a * sphereRadius.inMeters()), 
+             new Distance(b * sphereRadius.inMeters()), 
+             sideC],
+            [angleA, angleB, C],
+            sphereRadius
+        );
+    }
+
+    // Angle-Side-Angle (ASA)
+    static fromASA(
+        angleA: Angle,
+        sideB: Distance,
+        angleC: Angle,
+        sphereRadius: Distance = Sphere.getRadius()
+    ): Triangle {
+        // Calculate third angle
+        const B = new Angle(180 - (angleA.degrees + angleC.degrees));
+        if (B.degrees <= 0) {
+            throw new Error("Sum of angles must be less than 180°");
+        }
+
+        // Convert known side to radians
+        const b = sideB.inMeters() / sphereRadius.inMeters();
+
+        // Calculate remaining sides using law of sines
+        const sinA = Math.sin(angleA.toRadians());
+        const sinB = Math.sin(B.toRadians());
+        const sinC = Math.sin(angleC.toRadians());
+
+        const a = Math.asin(Math.sin(b) * sinA / sinB);
+        const c = Math.asin(Math.sin(b) * sinC / sinB);
+
+        // Calculate vertices
+        const vertices = Triangle.calculateVertices(a, b, c, angleA, B, angleC);
+
+        return new Triangle(
+            vertices,
+            [new Distance(a * sphereRadius.inMeters()), 
+             sideB, 
+             new Distance(c * sphereRadius.inMeters())],
+            [angleA, B, angleC],
+            sphereRadius
+        );
+    }
+
+    private static calculateVertices(
+        a: number,
+        b: number,
+        c: number,
+        A: Angle,
+        B: Angle,
+        C: Angle
+    ): [Coordinate, Coordinate, Coordinate] {
+        // Place first vertex at (0, 0)
+        const v1 = Coordinate.at(0, 0);
+
+        // Place second vertex along prime meridian
+        // Remember: Coordinate.at takes (latitude, longitude)
+        const v2 = Coordinate.at(0, b * (180 / Math.PI));
+
+        // Calculate third vertex using spherical coordinates
+        const lat3 = Math.asin(
+            Math.sin(c) * Math.sin(C.toRadians())
+        ) * (180 / Math.PI);
+
+        const lon3 = Math.atan2(
+            Math.sin(c) * Math.cos(C.toRadians()),
+            Math.cos(c)
+        ) * (180 / Math.PI);
+
+        const v3 = Coordinate.at(lat3, lon3);
+
+        return [v1, v2, v3];
+    }
+    
+    private validateTriangle(): void {
+        // Validate angles sum to less than 360° (spherical excess)
+        const angleSum = this.angles.reduce((sum, angle) => sum + angle.degrees, 0);
+        if (angleSum <= 180 || angleSum >= 540) {
+            throw new Error("Sum of angles must be between 180° and 540° for a spherical triangle");
+        }
+
+        // Validate sides against spherical triangle inequality
+        const sides = this.sides.map(s => s.inMeters());
+        if (sides[0] + sides[1] <= sides[2] ||
+            sides[1] + sides[2] <= sides[0] ||
+            sides[2] + sides[0] <= sides[1]) {
+            throw new Error("Triangle sides must satisfy spherical triangle inequality");
+        }
+    }
+
+    area(): number {
+        // Calculate area using spherical excess formula
+        const angleSum = this.angles.reduce((sum, angle) => sum + angle.degrees, 0);
+        const sphericalExcess = (angleSum - 180) * (Math.PI / 180);
+        return sphericalExcess * Math.pow(this.sphereRadius.inMeters() / 1000, 2);
+    }
+
+    perimeter(): Distance {
+        return new Distance(
+            this.sides.reduce((sum, side) => sum + side.inMeters(), 0)
+        );
+    }
+
+    getVertices(): [Coordinate, Coordinate, Coordinate] {
+        return [...this.vertices];
+    }
+
+    getSides(): [Distance, Distance, Distance] {
+        return [...this.sides];
+    }
+
+    getAngles(): [Angle, Angle, Angle] {
+        return [...this.angles];
+    }
+
+    getSphereRadius(): Distance {
+        return this.sphereRadius;
+    }
 }

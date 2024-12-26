@@ -1,63 +1,67 @@
+// SmallCircle.ts
+import { Circle } from './Circle.js';
 import { Coordinate } from './Coordinate.js';
-import { Point } from './Point.js';
 import { Distance } from './Distance.js';
 import { Sphere } from './Sphere.js';
-import { CoordinateSystem } from '../coordinate/CoordinateSystem.js';
 
-export class SmallCircle {
-    private readonly centerPoint: Point;
-
+export class SmallCircle extends Circle {
     private constructor(
-        private readonly center: Coordinate,
-        private readonly circleRadius: Distance,
-        private readonly sphereRadius: Distance = Sphere.getRadius()
+        center: Coordinate,
+        private readonly radius: Distance,
+        sphereRadius: Distance = Sphere.getRadius()
     ) {
-        this.centerPoint = CoordinateSystem.fromCoordinate(center);
+        super(center, sphereRadius);
     }
 
-    static withCenter = (center: Coordinate) => ({
-        radius: (radius: Distance) => new SmallCircle(center, radius)
-    });
+    static withCenter(center: Coordinate): { radius: (radius: Distance) => SmallCircle } {
+        return {
+            radius: (radius: Distance) => new SmallCircle(center, radius)
+        };
+    }
 
-    withSphere = (sphere: Sphere): SmallCircle =>
-        new SmallCircle(this.center, this.circleRadius, Sphere.getRadius());
+    getRadius(): Distance {
+        return this.radius;
+    }
 
-    circumference = (): Distance => {
-        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
-        return new Distance(2 * Math.PI * this.sphereRadius.inMeters() * Math.sin(angularRadius));
-    };
+    circumference(): Distance {
+        const angularRadius = this.radius.inMeters() / this.sphereRadius.inMeters();
+        return new Distance(
+            2 * Math.PI * this.sphereRadius.inMeters() * Math.sin(angularRadius)
+        );
+    }
 
-    area = (): number => {
-        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
+    area(): number {
+        const angularRadius = this.radius.inMeters() / this.sphereRadius.inMeters();
         const sphereRadiusKm = this.sphereRadius.inMeters() / 1000;
-        return 2 * Math.PI * Math.pow(sphereRadiusKm, 2) * (1 - Math.cos(angularRadius));
-    };
+        return 2 * Math.PI * Math.pow(sphereRadiusKm, 2) * 
+               (1 - Math.cos(angularRadius));
+    }
 
-    generatePoints = (numPoints: number = 100): Coordinate[] => {
+    generatePoints(numPoints: number = 100): Coordinate[] {
         const points: Coordinate[] = [];
-        const angularRadius = this.circleRadius.inMeters() / this.sphereRadius.inMeters();
+        const angularRadius = this.radius.inMeters() / this.sphereRadius.inMeters();
 
-        for (let i = 0; i < numPoints; i++) {
+        for (let i = 0; i <= numPoints; i++) {
             const angle = (2 * Math.PI * i) / numPoints;
+            
             const latRad = Math.asin(
-                Math.sin(this.centerPoint.Y) * Math.cos(angularRadius) +
-                Math.cos(this.centerPoint.Y) * Math.sin(angularRadius) * Math.cos(angle)
-            );
-            const lonRad = this.centerPoint.X + Math.atan2(
-                Math.sin(angle) * Math.sin(angularRadius) * Math.cos(this.centerPoint.Y),
-                Math.cos(angularRadius) - Math.sin(this.centerPoint.Y) * Math.sin(latRad)
+                Math.sin(this.center.latitude * Math.PI / 180) * Math.cos(angularRadius) +
+                Math.cos(this.center.latitude * Math.PI / 180) * Math.sin(angularRadius) * Math.cos(angle)
             );
 
-            points.push(CoordinateSystem.fromPoint(Point.at(lonRad, latRad)));
+            const lonRad = (this.center.longitude * Math.PI / 180) + Math.atan2(
+                Math.sin(angle) * Math.sin(angularRadius) * Math.cos(this.center.latitude * Math.PI / 180),
+                Math.cos(angularRadius) - Math.sin(this.center.latitude * Math.PI / 180) * Math.sin(latRad)
+            );
+
+            // Handle dateline crossing
+            let lon = lonRad * 180 / Math.PI;
+            if (lon > 180) lon -= 360;
+            if (lon < -180) lon += 360;
+
+            points.push(new Coordinate(latRad * 180 / Math.PI, lon));
         }
 
         return points;
-    };
-
-    getCenter = (): Coordinate => this.center;
-
-    getRadius = (): Distance => this.circleRadius;
-
-    toString = (): string =>
-        `SmallCircle(center: ${this.center}, radius: ${this.circleRadius})`;
+    }
 }
