@@ -1,3 +1,5 @@
+import { Coordinate } from "./Coordinate.js";
+
 // Point.ts
 export class Point {
     private constructor(
@@ -11,7 +13,8 @@ export class Point {
     }
 
     static fromCoordinate(coord: Coordinate): Point {
-        const [lat, lon] = coord.toRadians();
+        const lat = coord.latitudeRadians;
+        const lon = coord.longitudeRadians;
         return new Point(
             Math.cos(lat) * Math.cos(lon),
             Math.cos(lat) * Math.sin(lon),
