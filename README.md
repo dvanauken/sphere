@@ -1,83 +1,83 @@
-// Readme file for the project. 
-# Spherical Geometry API
+# Sphere Library Examples
 
-## Overview
-This API provides a comprehensive toolkit for performing geometric calculations on a spherical surface, ideal for applications in navigation, astronomy, and geospatial analysis.
+This repository contains examples of using the @dvanauken/sphere library with d3-geo for spherical geometry visualization.
 
-## Classes and Methods
+## Small Circle Example
 
-### Sphere
-| Method            | Description                                |
-|-------------------|--------------------------------------------|
-| `surfaceArea()`   | Calculates the surface area of the sphere. |
-| `volume()`        | Calculates the volume of the sphere.       |
+The SmallCircleExample class demonstrates distributing points uniformly across a sphere and generating small circles at each point.
 
-### Coordinate
-| Method            | Description                                        |
-|-------------------|----------------------------------------------------|
-| `toRadians()`     | Converts the latitude and longitude to radians.    |
-| `toString()`      | Returns a string representation of the coordinate. |
+```typescript
+import { SmallCircleExample } from '@dvanauken/sphere';
+import { Distance } from '@dvanauken/sphere';
+import * as d3 from 'd3';
 
-### GreatCircle
-| Method                 | Description                                        |
-|------------------------|----------------------------------------------------|
-| `calculateDistance()`  | Calculates the distance between two coordinates.   |
-| `findMidpoint()`       | Finds the midpoint along the great circle path.    |
+// Create geometry 
+const example = new SmallCircleExample(Distance.fromKilometers(100));
 
-### Arc
-| Method                 | Description                              |
-|------------------------|------------------------------------------|
-| `calculateLength()`    | Calculates the length of the arc.        |
-| `findPointAtFraction()`| Finds a point at a specified fraction along the arc. |
+// Generate points using graticule method (30° intervals)
+example.generateGraticulePoints(30);
+// OR use icosahedron vertices for more uniform distribution
+// example.generateIcosahedronPoints();
 
-### Triangle
-| Method                 | Description                              |
-|------------------------|------------------------------------------|
-| `calculateArea()`      | Calculates the area of the spherical triangle. |
-| `calculatePerimeter()` | Calculates the perimeter of the triangle. |
+// Get circles for visualization
+const circles = example.getCircles();
 
-### Angle
-| Method                 | Description                                |
-|------------------------|--------------------------------------------|
-| `toRadians()`          | Converts the angle to radians.              |
-| `normalize()`          | Normalizes the angle to the range [0, 360]. |
-| `add(angle: Angle)`    | Adds another angle to this angle.           |
-| `subtract(angle: Angle)` | Subtracts another angle from this angle.  |
+// Setup d3 projection
+const width = 960;
+const height = 500;
+const projection = d3.geoOrthographic()
+    .scale(250)
+    .translate([width / 2, height / 2]);
 
-### Azimuth
-| Method                 | Description                                |
-|------------------------|--------------------------------------------|
-| `calculateAzimuth()`   | Calculates the azimuth from start to end point. |
+const path = d3.geoPath().projection(projection);
 
-### Bearing
-| Method                      | Description                                  |
-|-----------------------------|----------------------------------------------|
-| `calculateInitialBearing()` | Calculates the initial bearing from start to end point. |
-| `calculateFinalBearing()`   | Calculates the final bearing from start to end point.   |
+// Create SVG
+const svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-### GeometryService
-| Method                           | Description                                  |
-|----------------------------------|----------------------------------------------|
-| `createGreatCircle()`           | Creates a great circle from two coordinates. |
-| `calculateSmallCircleArea()`    | Calculates the area of a small circle given its radius. |
-| `isWithinDistanceFromGreatCircle()` | Determines if a coordinate is within a certain distance from a great circle. |
+// Draw circles
+circles.forEach(circle => {
+    const points = circle.generatePoints(100);
+    const coordinates = points.map(p => [p.longitude, p.latitude]);
+    coordinates.push(coordinates[0]); // Close the path
+    
+    const pathData = path({
+        type: "Feature",
+        geometry: {
+            type: "LineString",
+            coordinates: coordinates
+        }
+    });
 
-### CalculationService
-| Method                           | Description                                  |
-|----------------------------------|----------------------------------------------|
-| `calculateDistance()`            | Calculates the distance between two coordinates. |
-| `calculateBearing()`             | Calculates the bearing between two coordinates. |
-| `calculateTriangleAngle()`       | Calculates the angle at a vertex of a spherical triangle given three coordinates. |
+    svg.append("path")
+        .attr("d", pathData)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1);
+});
 
-### Converters
-| Method                     | Description                                  |
-|----------------------------|----------------------------------------------|
-| `degreesToRadians(degrees)`| Converts degrees to radians.                 |
-| `radiansToDegrees(radians)`| Converts radians to degrees.                 |
+// Add rotation interaction
+svg.call(d3.drag()
+    .on("drag", (event) => {
+        const rotate = projection.rotate();
+        projection.rotate([
+            rotate[0] + event.dx * 0.5,
+            rotate[1] - event.dy * 0.5
+        ]);
+        svg.selectAll("path").attr("d", path);
+    }));
+```
 
-### Validators
-| Method                     | Description                                  |
-|----------------------------|----------------------------------------------|
-| `validateLatitude(latitude)` | Validates if the latitude is within valid range. |
-| `validateLongitude(longitude)` | Validates if the longitude is within valid range. |
+## Features
 
+- Uniform point distribution using graticule intersections or icosahedron vertices
+- Small circle generation with configurable radius
+- Integration with d3-geo for projection and visualization
+- Interactive rotation support
+
+## Installation
+
+```bash
+npm install @dvanauken/sphere d3
+```
