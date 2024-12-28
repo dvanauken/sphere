@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@dvanauken/sphere",
-  "version": "0.1.0-alpha.1008",
+  "version": "0.3.0-alpha.1019",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
